@@ -1,0 +1,16 @@
+{% extends 'user/base.html' %}
+
+{% block title %}
+Edit your Profile
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>Edit Your Account's Profile</h1>
+<form method="POST" novalidate enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ profile_form|crispy}}
+	{{ user_form|crispy }}
+	<input type="submit" value="Change" class="btn btn-success">
+</form>
+{% endblock %}

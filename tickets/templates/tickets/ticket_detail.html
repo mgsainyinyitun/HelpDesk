@@ -1,0 +1,103 @@
+{% extends 'user/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div>
+	<!-- User Profile -->
+	<div style="
+		display: inline-flex;	
+	" 
+	>
+		<div>
+
+			<img src="{{ticket.user.profile.photo.url}}" alt="profile"
+			width="50" height="50"
+			class="border border-primary rounded-circle mr-3" 
+			>
+		</div>
+		<div>
+			<h5 style="color: blue;">{{ticket.name}}</h5>
+			<p style="font-size: 0.8em;color: #7EA6E0;">{{ticket.updated}}</p>
+		</div>
+	</div>
+
+	<!-- for content -->
+	<div style="
+		width: 80%;
+	">
+		<h3 style="
+			color: #7EA6E0;
+			font-size: 2.5em;
+		">{{ticket.subject}}</h3>
+		<p style="text-align: justify;font-size: 1.3em;
+		color: #470070;
+		">{{ticket.description}}</p>
+
+		{% if ticket.status == 'Open' %}
+		<a href="" class="btn btn-danger rounded-pill">Open</a>
+		{% elif ticket.status == 'Pending' %}
+		<a href="" class="btn btn-info rounded-pill">Pending</a>
+		{% else %}
+		<a href="" class="btn btn-success rounded-pill">Closed</a>
+		{% endif %}
+
+	</div>
+
+	<!-- View Comments -->
+
+	<div>
+
+		{%for comment in comments %}
+		<!-- for prfile -->
+		<div style="display:inline-flex;" class="mt-3">
+			<div>
+				<img src="{{comment.user.profile.photo.url}}"
+					width="50" height="50"
+					class="border border-primary rounded-circle mr-3" 
+					alt="Profile" 
+				>
+			</div>
+			<div>
+				<h5 style="font-size: 0.9em;color:blue;">{{comment.name}}</h5>
+				<p style="font-size: 0.7em;color:#7EA6E0">{{comment.updated}}</p>
+			</div>
+		</div>
+		<br>
+
+		<!-- content -->
+		<div>
+			<p style="
+				color: #006088;
+			">{{comment.body}}</p>
+		</div>
+		<hr>
+
+
+		{% endfor %}
+	</div>
+
+
+	<!-- for Comment Form -->
+	<div class="row">
+
+		<div class="col">
+			<form method="POST" novalidate>
+				{% csrf_token %}
+				{{comment_form|crispy}}
+				<input type="submit" name="submit" value="Submit" class="btn btn-info mb-5">		
+			</form>	
+		</div>
+		<div class="col"></div>
+		<div class="col"></div>
+	</div>
+		
+		
+
+
+
+
+
+
+</div>
+
+{% endblock %}

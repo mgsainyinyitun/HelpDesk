@@ -1,0 +1,16 @@
+{% extends 'user/base.html' %}
+
+{% block title %}
+Register Form
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>Register Your Account</h1>
+<form method="POST" novalidate enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ user_profile|crispy}}
+	{{ user_form|crispy }}
+	<input type="submit" value="Register" class="btn btn-success">
+</form>
+{% endblock %}

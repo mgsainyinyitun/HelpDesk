@@ -1,0 +1,59 @@
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  {% load static %}
+  <a class="navbar-brand" href="#">HELP.D</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'dashboard'%}">Dashboard <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Staff</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Customer</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="#">Ticket</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="row mr-5 bg-success rounded-pill" style="margin: 0px;padding:3px" >
+  <ul style="list-style:none;list-style-type:none;margin: 0px;padding: 0px;">
+  <li style="float: right;">
+  <img src = '{{user.profile.photo.url}}' class="rounded-circle" style="width:50px; height:50px;">
+  </li>
+   <li class="nav-item dropdown" style="float: right;">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <h6 class="text-white">{{user.username}}</h6>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'edit'%}">Profile</a>
+          <a class="dropdown-item" href="{% url 'password_change'%}">Change Password</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'logout'%}">Logout</a>
+          
+        </div>
+    </li>
+  </ul>
+</div>
+  
+</nav>
+
+{% if messages %}
+<ul style="list-style-type:none; padding: 0px;margin: 2px;" >
+    {% for message in messages %}
+    <li 
+       class="bg-success text-white" style="padding: 2px;text-align: center;">
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+

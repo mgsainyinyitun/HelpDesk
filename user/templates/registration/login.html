@@ -1,0 +1,14 @@
+{% extends 'user/base.html' %}
+{% block title %}
+Login Form
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>Login Form</h1>
+<form method="POST" novalidate>
+	{% csrf_token %}
+	{{ form|crispy }}
+	<input type="submit" value="Login" class="btn btn-success">
+	<p style="float: right;">Forgot passward click<a href="{% url 'password_reset'%}"> Here </a> .</p>
+</form>
+{% endblock %}

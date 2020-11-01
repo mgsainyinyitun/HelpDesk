@@ -1,0 +1,12 @@
+{% extends 'user/base.html' %}
+
+{% block title %}
+{{user.username}}'s Dashboard
+{% endblock %}
+{% block content %}
+
+{% if user.is_superuser %}
+{% include 'tickets/admin_dashboard.html' %}
+{% endif %}
+
+{% endblock %}
