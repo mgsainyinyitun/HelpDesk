@@ -1,5 +1,8 @@
 # HelpDesk
 
+0. Install Django in your python env
+   >> pip install django
+
 1. Install crispy form in your python environment.
    >> pip install django-crispy-forms
 
