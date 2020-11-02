@@ -30,11 +30,14 @@
 	<p>{{ticket.description|truncatewords:30 }}</p>
 	
 	{% if ticket.status == 'Open' %}
-		<a href="#" class="btn btn-danger rounded-pill">Open</a>
+		<div class="badge badge-danger rounded-pill">Open</div>
+		<div class="badge badge-danger rounded-pill">{% include 'tickets/priority.html' %}</div>
 	{% elif ticket.status == 'Pending' %}
-		<a href="#" class="btn btn-info rounded-pill">Pending</a>
+		<div  class="badge badge-info rounded-pill">Pending</div>
+		<div class="badge badge-danger rounded-pill">{% include 'tickets/priority.html' %}</div>
 	{% else %}
-		<a href="#" class="btn btn-success rounded-pill">Closed</a>
+		<div  class="badge badge-success rounded-pill">Closed</div>
+		<div class="badge badge-danger rounded-pill">{% include 'tickets/priority.html' %}</div>
 	{% endif %}
 
 	<hr>

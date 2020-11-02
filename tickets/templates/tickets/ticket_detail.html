@@ -33,14 +33,50 @@
 		color: #470070;
 		">{{ticket.description}}</p>
 
-		{% if ticket.status == 'Open' %}
-		<a href="" class="btn btn-danger rounded-pill">Open</a>
-		{% elif ticket.status == 'Pending' %}
-		<a href="" class="btn btn-info rounded-pill">Pending</a>
-		{% else %}
-		<a href="" class="btn btn-success rounded-pill">Closed</a>
-		{% endif %}
+		<div style="display: inline-flex;">
+		<!-- bottom -->
+		<a href={{ticket.attachment.url}} class="btn btn-info rounded-pill mr-1">View Attachment</a>
 
+		<!-- bottom -->
+		<div class="btn btn-info rounded-pill mr-1">{% include 'tickets/priority.html'%}</div>
+
+		<!-- bottom -->
+		{% if ticket.status == 'Open' %}
+
+		<!-- Example single danger button -->
+			<div class="btn-group">
+			  <button type="button" class="btn btn-danger dropdown-toggle rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Open
+			  </button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" href="pending">Pending</a>
+			    <a class="dropdown-item" href="close">Close</a>
+			  </div>
+			</div>
+
+
+		{% elif ticket.status == 'Pending' %}
+		<div class="btn-group">
+			  <button type="button" class="btn btn-info dropdown-toggle rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Pending
+			  </button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" href="open">Open</a>
+			    <a class="dropdown-item" href="close">Close</a>
+			  </div>
+		</div>
+		{% else %}
+		<div class="btn-group">
+			  <button type="button" class="btn btn-success dropdown-toggle rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Closed
+			  </button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" href="open">Open</a>
+			    <a class="dropdown-item" href="pending">Pending</a>
+			  </div>
+			</div>
+		{% endif %}
+	</div>
 	</div>
 
 	<!-- View Comments -->
