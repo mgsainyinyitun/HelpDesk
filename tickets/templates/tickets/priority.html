@@ -1,11 +1,11 @@
 
 	{% if ticket.priority == 'critical' %}
-		Critical
+		<div class="badge badge-danger rounded-pill">Critical</div>
 	{% elif ticket.priority == 'urgent' %}
-		Urgent
+		<div class="badge badge-warning rounded-pill">Urgent</div>
 	{% elif ticket.priority == 'normal'  %}
-		Normal
+		<div class="badge badge-info rounded-pill"> Normal</div>
 	{% else %}
-		Not Important
+		<div class="badge badge-success rounded-pill">Not Important</div>
 	{% endif %}
 	

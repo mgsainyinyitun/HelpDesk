@@ -20,7 +20,7 @@ class Tickets(models.Model):
 					('not_important','Not Important'),
 				   );
 
-	status = models.CharField(max_length=100,choices=STATUS_CHOICES,default='open');
+	status = models.CharField(max_length=100,choices=STATUS_CHOICES,default='Open');
 	priority = models.CharField(max_length=100,choices= SET_PRIORITY,default = 'not_important');
 	created = models.DateTimeField(auto_now =True);
 	updated = models.DateTimeField(auto_now_add = True);

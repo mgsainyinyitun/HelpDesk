@@ -5,7 +5,6 @@
 	 <a href="#" class="btn btn-dark rounded-pill">Recent</a>
 </div>
 
-
 <div class="mt-3">
 {% for ticket in tickets %}
 	<!-- For User Profile -->
@@ -25,7 +24,7 @@
 		</div>
 	</div>
 
-	<!-- for Contents -->
+		<!-- for Contents -->
 	<a href="{{ticket.id}}"><h4 style="color: #7EA6E0">{{ticket.subject}}</h4></a>
 	<p>{{ticket.description|truncatewords:30 }}</p>
 	

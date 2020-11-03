@@ -1,0 +1,11 @@
+{% extends 'user/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="POST" novalidate="true" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{new_form|crispy}}
+	<input type="submit" name="submit" value="Create" class="btn btn-success">
+</form>
+
+{% endblock %}

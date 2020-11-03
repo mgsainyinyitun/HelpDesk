@@ -7,6 +7,12 @@
 
 {% if user.is_superuser %}
 {% include 'tickets/admin_dashboard.html' %}
+
+{% elif user.is_staff %}
+{% include 'tickets/technician_dashboard.html' %}
+
+{% else %}
+{% include 'tickets/customer_dashboard.html' %}
 {% endif %}
 
 {% endblock %}

@@ -1,6 +1,5 @@
 {% extends 'user/base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 <div>
 	<!-- User Profile -->
@@ -34,11 +33,14 @@
 		">{{ticket.description}}</p>
 
 		<div style="display: inline-flex;">
-		<!-- bottom -->
+
+		<!-- bottom 
+		{% if ticket.attachment != null %}
 		<a href={{ticket.attachment.url}} class="btn btn-info rounded-pill mr-1">View Attachment</a>
+		{% endif %}-->
 
 		<!-- bottom -->
-		<div class="btn btn-info rounded-pill mr-1">{% include 'tickets/priority.html'%}</div>
+		<div class="{{pri_design}} mr-1">{{priority}}</div>
 
 		<!-- bottom -->
 		{% if ticket.status == 'Open' %}
