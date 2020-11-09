@@ -4,6 +4,7 @@ from .models import Tickets,Comment;
 from .forms import CommentForm, TicketForm;
 from django.contrib.auth.models import User;
 from django import forms;
+from django.core.paginator import Paginator,PageNotAnInteger;
 
 @login_required
 def dashboard(request):
@@ -15,6 +16,7 @@ def dashboard(request):
 	else:
 		tickets = Tickets.objects.filter(user=request.user);
 
+
 	for ticket in tickets:
 		if ticket.status == 'Open':
 			open = open + 1;
@@ -24,11 +26,15 @@ def dashboard(request):
 			pending = pending +1;
 
 
+	#paginator function
+	page_obj,tickets = paginated(request,tickets);	
+
 	#print('User',user);
 	return render(request,'user/dashboard.html',{'tickets':tickets,
 												 'open':open,
 												 'closed':closed,
 												 'pending':pending,
+												 'page_obj':page_obj,
 												});
 
 
@@ -105,3 +111,38 @@ def create_ticket(request):
 	else:
 		new_form = TicketForm();
 	return render(request,'tickets/create_ticket.html' ,{'new_form':new_form});
+
+
+@login_required
+def status_view(request,status):
+	if status == 'recent':
+		return redirect('dashboard');
+
+
+	tickets = Tickets.objects.filter(status = status.capitalize());
+	number = 0;
+	# Key <Open, Closed , Pending>
+	for _ in tickets:
+		number = number+1; #tickets.count
+
+	page_obj,tickets = paginated(request,tickets);
+
+	return render(request,'tickets/status_view.html',{'tickets':tickets,
+													  'status':status,
+													  'number':number,
+													  'page_obj':page_obj,
+														});
+
+
+
+def paginated(request,tickets):
+	paginator = Paginator(tickets,3);
+	try:
+		page = request.GET.get('page'); # page no variable 
+		page_obj =paginator.get_page(page);
+		tickets = paginator.page(page);
+	except PageNotAnInteger:
+		page_obj = paginator.get_page(1);
+		tickets = paginator.page(1);
+
+	return page_obj,tickets;

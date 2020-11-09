@@ -1,0 +1,18 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+
+{% if status == 'open' %}
+<div class="btn btn-danger rounded-pill">{{number}} Open Tickets</div>
+{% elif status == 'pending' %}
+<div class="btn btn-info rounded-pill">{{number}} Pending Tickets</div>
+{% else %}
+<div class="btn btn-success rounded-pill">{{number}} Closed Tickets</div>
+{% endif %}
+
+<a href="/status/recent" class="btn btn-dark rounded-pill">Recent</a>
+
+{% include 'tickets/tickets_list.html' %}
+{% include 'tickets/paginator.html' %}
+
+{% endblock %}

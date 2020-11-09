@@ -1,0 +1,27 @@
+<div class="mb-5" 
+style="display: flex;justify-content: center;" 
+>
+	{% if page_obj.has_previous %}
+	<a class="btn btn-info rounded-pill mr-1"
+	style="width: 10%;" 
+	href="?page={{ page_obj.previous_page_number }}" 
+	> &lt;&lt;Previous</a>
+	<!-- url/?page=2  GET/POST -->
+	{% else %}
+	<div class="btn btn-light rounded-pill" style="width: 10%;">&lt;&lt;Previous</div>
+	{% endif %}
+
+
+	<div class="btn btn-info mr-1" >
+		Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+	</div>
+
+	{% if page_obj.has_next %}
+	<a class="btn btn-info rounded-pill"
+	style="width: 10%;"
+	href="?page={{ page_obj.next_page_number }}" 
+	>Next &gt;&gt;</a>
+	{% else %}
+	<div class="btn btn-light rounded-pill" style="width: 10%;">Next &gt;&gt;</div>
+	{% endif %}
+</div>
