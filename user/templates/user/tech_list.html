@@ -1,0 +1,41 @@
+<table class="table table-bordered">
+	<thead class="bg-secondary">
+		<tr>
+			<th scope="col" class="text-white">PROFILE</th>
+			<th scope="col" class="text-white">ROLE</th>
+			<th scope="col" class="text-white">EMAIL</th>
+			<th scope="col" class="text-white">PHONE</th>
+			<th scope="col" class="text-white">ADDRESS</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users  %} 
+			<tr>
+				<td>
+					<div style="display: inline-flex;">
+						<a href="#">
+							<img src="{{user.profile.photo.url}}" alt="profile"
+							width="50" height="50"
+							class="border border-primary rounded-circle mr-3">
+						</a>
+						<div>
+							<h5 style="color: #0849AA;">{{user.username}}</h5>
+							<p style="font-size: 0.8em;color: #7EA6E0;">{{user.date_joined}}</p>
+						</div>
+					</div>
+				</td>
+
+				{% if user.is_superuser %}
+					<td class="bg-danger text-white">Admin</td>
+				{% else %}
+					<td class="bg-success text-white">Technician</td>
+				{% endif %}
+
+				<td>{{user.email}}</td>
+				<td>{{user.profile.phone}}</td>
+				<td>{{user.profile.address}}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+		
+</table>

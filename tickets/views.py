@@ -8,9 +8,7 @@ from django.core.paginator import Paginator,PageNotAnInteger;
 
 @login_required
 def dashboard(request):
-	open=0;
-	closed =0;
-	pending = 0;
+	open=0;closed =0;pending = 0;
 	if request.user.is_superuser or request.user.is_staff:
 		tickets = Tickets.objects.all();
 	else:
@@ -25,9 +23,12 @@ def dashboard(request):
 		elif ticket.status == 'Pending':
 			pending = pending +1;
 
+	print('open:::',open);
+	print('closed:::',closed);
+	print('pending:::',pending);
 
 	#paginator function
-	page_obj,tickets = paginated(request,tickets);	
+	page_obj,tickets = paginated(request,tickets,3);	
 
 	#print('User',user);
 	return render(request,'user/dashboard.html',{'tickets':tickets,
@@ -35,6 +36,7 @@ def dashboard(request):
 												 'closed':closed,
 												 'pending':pending,
 												 'page_obj':page_obj,
+												 'dashboard':'active',
 												});
 
 
@@ -78,6 +80,7 @@ def ticket_detail(request,id):
 														'comments':comments,
 														'pri_design':pri_design,
 														'priority':priority,
+														'dashboard':'active',
 														});
 
 
@@ -105,12 +108,14 @@ def create_ticket(request):
 		if new_form.is_valid():
 			new_ticket = new_form.save(commit = False);
 			new_ticket.user = request.user;
-			new_ticket.name = request.user.username;
+			#new_ticket.name = request.user.username;
 			new_ticket.save();
 			return redirect('dashboard');
 	else:
 		new_form = TicketForm();
-	return render(request,'tickets/create_ticket.html' ,{'new_form':new_form});
+	return render(request,'tickets/create_ticket.html' ,{'new_form':new_form,
+														 'dashboard':'active',
+															});
 
 
 @login_required
@@ -118,31 +123,35 @@ def status_view(request,status):
 	if status == 'recent':
 		return redirect('dashboard');
 
-
 	tickets = Tickets.objects.filter(status = status.capitalize());
+
+	if not request.user.is_superuser and not request.user.is_staff:
+		tickets = tickets.filter(user= request.user);
+
 	number = 0;
 	# Key <Open, Closed , Pending>
 	for _ in tickets:
 		number = number+1; #tickets.count
 
-	page_obj,tickets = paginated(request,tickets);
+	page_obj,tickets = paginated(request,tickets,3);
 
 	return render(request,'tickets/status_view.html',{'tickets':tickets,
 													  'status':status,
 													  'number':number,
 													  'page_obj':page_obj,
+													  'dashboard':'active',
 														});
 
 
 
-def paginated(request,tickets):
-	paginator = Paginator(tickets,3);
+def paginated(request,objects,number):
+	paginator = Paginator(objects,number);
 	try:
 		page = request.GET.get('page'); # page no variable 
 		page_obj =paginator.get_page(page);
-		tickets = paginator.page(page);
+		objects = paginator.page(page);
 	except PageNotAnInteger:
 		page_obj = paginator.get_page(1);
-		tickets = paginator.page(1);
+		objects = paginator.page(1);
 
-	return page_obj,tickets;
+	return page_obj,objects;

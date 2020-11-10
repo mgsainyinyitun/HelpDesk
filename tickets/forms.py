@@ -6,8 +6,7 @@ class CommentForm(forms.ModelForm):
 		model = Comment;
 		fields = ('name','body');
 
-
 class TicketForm(forms.ModelForm):
 	class Meta:
 		model =  Tickets;
-		fields = ('subject','description','priority','attachment');
+		fields = ('name','subject','description','priority','attachment');
