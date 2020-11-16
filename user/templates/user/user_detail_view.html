@@ -1,0 +1,133 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+
+<div class="container card p-3">
+	<!-- profile picture -->
+	<div style="
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	" 
+	class="mb-3" 
+	>
+		<img src="{{d_user.profile.photo.url}}"
+		width="150"
+		height="150"
+		class="border border-primary rounded-pill" 
+		>
+		<div style="display: flex;justify-content: center;align-items: center;">
+			<p style="font-size: 2rem;font-weight: bold;color: #1600E8" class="mr-1">{{d_user.username}}</p>
+			{% if d_user.is_superuser %}
+			<div class="badge badge-danger">Admin</div>
+			{%else %}
+			<div class="badge badge-success">Technician</div>
+			{% endif %}
+		</div>
+	</div>
+
+	<!-- for other info -->
+
+	<div>
+		<div class="row">
+			<div class="col-4">
+				<p style="float: right;font-weight: bold;color: #020064;font-size: 1.2em;"><i class="fas fa-user-tie mr-2"></i>USER NAME : </p></div>
+			<div class="col-8">
+			<div style="background-color: rgba(14,31,255,0.5);
+			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
+			">
+			{{d_user.username}}
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4">
+				<p style="float: right;font-weight: bold;color: #020064;font-size: 1.2em;"><i class="fas fa-birthday-cake mr-2"></i>BIRTHDAY : </p></div>
+			<div class="col-8">
+			<div style="background-color: rgba(14,31,255,0.5);
+			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
+			">
+			{{d_user.profile.birthday}}
+			</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-4">
+				<p style="float: right;font-weight: bold;color: #020064;font-size: 1.2em;"><i class="fas fa-envelope-square mr-2"></i>E-MAIL : </p></div>
+			<div class="col-8">
+			<div style="background-color: rgba(14,31,255,0.5);
+			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
+			">
+			{{d_user.email}}
+			</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-4">
+				<p style="float: right;font-weight: bold;color: #020064;font-size: 1.2em;"><i class="fas fa-phone-square alt mr-2"></i>PHONE : </p></div>
+			<div class="col-8">
+			<div style="background-color: rgba(14,31,255,0.5);
+			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
+			">
+			{{d_user.profile.phone}}
+			</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-4">
+				<p style="float: right;font-weight: bold;color: #020064;font-size: 1.2em;"><i class="fas fa-address-card mr-2"></i>ADDRESS : </p></div>
+			<div class="col-8">
+			<div style="background-color: rgba(14,31,255,0.5);
+			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
+			">
+			{{d_user.profile.address}}
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4">
+				<p style="float: right;font-weight: bold;color: #020064;font-size: 1.2em;"><i class="fas fa-calendar mr-2"></i>JOIN DATE : </p></div>
+			<div class="col-8">
+			<div style="background-color: rgba(14,31,255,0.5);
+			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
+			">
+			{{d_user.date_joined}}
+			</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-4">
+				<p style="float: right;font-weight: bold;color: #020064;font-size: 1.2em;"><i class="fas fa-user-clock mr-2"></i>LAST LOGIN : </p></div>
+			<div class="col-8">
+			<div style="background-color: rgba(14,31,255,0.5);
+			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
+			">
+			{{d_user.last_login}}
+			</div>
+			</div>
+		</div>
+
+
+
+
+	</div>
+
+</div>
+
+
+
+
+
+
+{% endblock %}

@@ -2,7 +2,7 @@
 	<thead class="bg-secondary">
 		<tr>
 			<th scope="col" class="text-white">PROFILE</th>
-			<th scope="col" class="text-white">ROLE</th>
+			
 			<th scope="col" class="text-white">EMAIL</th>
 			<th scope="col" class="text-white">PHONE</th>
 			<th scope="col" class="text-white">ADDRESS</th>
@@ -26,12 +26,6 @@
 						</div>
 					</div>
 				</td>
-
-				{% if user.is_superuser %}
-					<td class="bg-danger text-white">Admin</td>
-				{% else %}
-					<td class="bg-success text-white">Technician</td>
-				{% endif %}
 
 				<td>{{user.email}}</td>
 				<td>{{user.profile.phone}}</td>

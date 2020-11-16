@@ -1,0 +1,11 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<div class="mb-3">
+<div class="btn btn-info rounded-pill">{{users.count}} Customer</div>
+
+<a href="{% url 'register' %}" class="btn btn-info rounded-circle"><i class="fas fa-plus"></i></a>
+</div>
+
+{% include 'user/customer_list.html' %}
+{% include 'tickets/paginator.html' %}
+{% endblock %}

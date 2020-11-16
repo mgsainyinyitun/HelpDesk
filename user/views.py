@@ -84,4 +84,31 @@ def role_view(request,role):
 
 
 
+@login_required
+def user_detail_view(request,id):
+	d_user = User.objects.get(pk=id);
+	tech = '';
+	customer = '';
+
+	if d_user.is_superuser or d_user.is_staff:
+		tech = 'active';
+	else:
+		customer='active';
+
+	return render(request,'user/user_detail_view.html',{'tech':tech,
+														'customer':customer,
+														'd_user':d_user
+														});
+
+# for customer
+
+@login_required
+
+def customer_view(request):
+	users = User.objects.filter(is_superuser=False,is_staff=False);
+	return render(request,'user/customer_view.html',{ 'customer':'active',
+													  'users':users
+														});
+
+
 

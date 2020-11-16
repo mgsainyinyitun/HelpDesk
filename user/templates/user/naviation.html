@@ -14,15 +14,16 @@
 
         {% if user.is_superuser %}
         <li class="nav-item {{tech}}">
-          <a class="nav-link" href="{% url 'tech-view' %}"><i class="fas fa-users-cog">TECHNICIAN</i></a>
+          <a class="nav-link" href="{% url 'tech-view' %}"><i class="fas fa-users-cog"> TECHNICIAN</i></a>
         </li>
         {% endif %}
 
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-users">CUSTOMERS</i></a>
+        <li class="nav-item {{customer}}">
+          <a class="nav-link" href="{% url 'customer-view' %}"><i class="fas fa-users">      CUSTOMERS</i></a>
         </li>
+
          <li class="nav-item"> 
-        <a class="nav-link" href="#"><i class="fas fa-paste">TICKETS</i></a>
+        <a class="nav-link" href="#"><i class="fas fa-paste"> TICKETS</i></a>
         {% else %}
         <a class="nav-link" href="create">NEW TICKETS</a>
         <a class="nav-link" href="#">ABOUT US</a>

@@ -16,6 +16,9 @@ urlpatterns = [
     path('edit/',views.edit,name='edit'),
     path('tech/',views.tech_view,name='tech-view'),
     path('tech/<str:role>',views.role_view,name='role-view'),
+    path('tech/detail/<int:id>',views.user_detail_view,name='user-detail-view'),
+    #customer
+    path('customer/',views.customer_view,name='customer-view'),
 
     #path('dashboard/',views.dashboard,name='dashboard'),
 ]
