@@ -19,6 +19,7 @@ urlpatterns = [
     path('tech/detail/<int:id>',views.user_detail_view,name='user-detail-view'),
     #customer
     path('customer/',views.customer_view,name='customer-view'),
+    path('customer/new',views.new_customer,name='new-customer'),
 
     #path('dashboard/',views.dashboard,name='dashboard'),
 ]

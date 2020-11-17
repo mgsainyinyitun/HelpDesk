@@ -1,10 +1,13 @@
 from django.shortcuts import render,redirect;
 from django.contrib.auth.decorators import login_required;
-from .models import Tickets,Comment;
-from .forms import CommentForm, TicketForm;
+from .models import Tickets,Comment,Category;
+from .forms import CommentForm, TicketForm,CategoryForm;
 from django.contrib.auth.models import User;
 from django import forms;
 from django.core.paginator import Paginator,PageNotAnInteger;
+
+from django.utils.text import slugify;
+
 
 @login_required
 def dashboard(request):
@@ -141,8 +144,31 @@ def status_view(request,status):
 													  'page_obj':page_obj,
 													  'dashboard':'active',
 														});
+#category
+@login_required
+def new_category(request):
+	if request.method == 'POST':
+		category_form = CategoryForm(data=request.POST);
+		if category_form.is_valid():
+			new_category = category_form.save(commit=False);
+			new_category.slug = slugify(new_category.name);
+			new_category.save();
+			return redirect('dashboard');
+	else:
+		category_form= CategoryForm();
+
+	return render(request,'tickets/new_category.html',{ 'category':'active',
+														'category_form':category_form,
+														});
 
 
+
+#tickets
+def tickets(request):
+	categories = Category.objects.all();
+	return render(request,'tickets/tickets.html',{'ticket':'active',
+												  'categories':categories,
+													});
 
 def paginated(request,objects,number):
 	paginator = Paginator(objects,number);

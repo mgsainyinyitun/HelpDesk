@@ -21,7 +21,7 @@
 			<p style="font-size: 2rem;font-weight: bold;color: #1600E8" class="mr-1">{{d_user.username}}</p>
 			{% if d_user.is_superuser %}
 			<div class="badge badge-danger">Admin</div>
-			{%else %}
+			{%elif d_user.is_staff %}
 			<div class="badge badge-success">Technician</div>
 			{% endif %}
 		</div>
@@ -54,6 +54,17 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-4">
+				<p style="float: right;font-weight: bold;color: #020064;font-size: 1.2em;"><i class="fas fa-restroom mr-2"></i>GENDER : </p></div>
+			<div class="col-8">
+			<div style="background-color: rgba(14,31,255,0.5);
+			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
+			">
+			{{d_user.profile.gender}}
+			</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-4">

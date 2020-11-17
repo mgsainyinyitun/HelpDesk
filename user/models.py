@@ -6,9 +6,15 @@ from django.conf import settings
 
 class Profile(models.Model):#User
 	user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE);
-	photo = models.ImageField(null=True,blank=True);
+	photo = models.ImageField(null=True,blank=True,default='default.jpg');
 	birthday = models.DateField(null=True,blank=True);
 	phone = models.CharField(max_length=20,null=True,blank=True);
 	address = models.TextField(null=True,blank=True);
+	GENDER = (
+				('other','Other'), # (Key,value)
+				('male','Male'),
+				('female','Female')
+			);
+	gender = models.CharField(max_length=100,choices = GENDER,default='other');
 	def __str__(self):
 		return self.user.username;

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from . forms import UserRegistrationForm,ProfileForm,UserForm
+from . forms import UserRegistrationForm,ProfileForm,UserForm,CustomerRegistrationForm;
 from django.contrib.auth.decorators import login_required;
 from django.contrib import messages;
 from django.contrib.auth.models import User;
@@ -19,6 +19,9 @@ def register(request):
 
 			new_profile = user_profile.save(commit=False);
 			new_profile.user = new_user;
+
+			if new_profile.gender == 'female':
+				new_profile.photo = 'default_female.jpg';
 			new_profile.save();
 
 			return redirect('login');
@@ -89,7 +92,6 @@ def user_detail_view(request,id):
 	d_user = User.objects.get(pk=id);
 	tech = '';
 	customer = '';
-
 	if d_user.is_superuser or d_user.is_staff:
 		tech = 'active';
 	else:
@@ -108,6 +110,33 @@ def customer_view(request):
 	users = User.objects.filter(is_superuser=False,is_staff=False);
 	return render(request,'user/customer_view.html',{ 'customer':'active',
 													  'users':users
+														});
+
+
+@login_required
+def new_customer(request):
+	if request.method == 'POST':
+		customer_form = CustomerRegistrationForm(data=request.POST);
+		profile_form = ProfileForm(data=request.POST,files = request.FILES);
+		if customer_form.is_valid() and profile_form.is_valid():
+			new_customer = customer_form.save(commit = False);
+			new_profile = profile_form.save(commit=False);
+			new_customer.set_password(customer_form.cleaned_data['password1']);
+			new_profile.user = new_customer;
+
+			if new_profile.gender == 'female':
+				new_profile.photo = 'default_female.jpg';
+
+			new_customer.save();
+			new_profile.save();
+			return redirect('dashboard');
+	else:
+		customer_form = CustomerRegistrationForm();
+		profile_form = ProfileForm();
+
+	return render(request,'user/new_customer.html',{ 'customer':'active',
+													 'profile_form':profile_form,
+													 'customer_form':customer_form,
 														});
 
 

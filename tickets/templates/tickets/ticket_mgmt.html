@@ -1,0 +1,66 @@
+<div style="display: flex;width: 100%;">
+<div class="dropdown mr-1">
+  <button class="btn btn-secondary rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    STATUS
+  </button>
+  <div class="dropdown-menu bg-secondary" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item border-bottom text-white" href="#">All</a>
+    <a class="dropdown-item border-bottom text-white" href="#">Open</a>
+    <a class="dropdown-item border-bottom text-white" href="#">Close</a>
+    <a class="dropdown-item text-white" href="#">Pending</a>
+  </div>
+</div>
+
+
+
+<div class="dropdown mr-1">
+  <button class="btn btn-info rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    PRIORITY
+  </button>
+  <div class="dropdown-menu bg-info" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item border-bottom text-white" href="#">All</a>
+    <a class="dropdown-item border-bottom text-white" href="#">Critical</a>
+    <a class="dropdown-item border-bottom text-white" href="#">Urgent</a>
+    <a class="dropdown-item text-white border-bottom" href="#">Normal</a>
+    <a class="dropdown-item text-white" href="#">Not Important</a>
+  </div>
+</div>
+
+
+<div class="dropdown mr-1">
+  <button class="btn btn-info rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    CATEGORY
+  </button>
+  <div class="dropdown-menu bg-info" aria-labelledby="dropdownMenuButton">
+
+    <a class="dropdown-item border-bottom text-white" href="#">All</a>
+    {% for category in categories %}
+    <a class="dropdown-item border-bottom text-white" href="#">{{category.name}}</a>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="dropdown mr-1">
+  <button class="btn btn-info rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    SORT BY
+  </button>
+  <div class="dropdown-menu bg-info" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item border-bottom text-white" href="#">None</a>
+    <a class="dropdown-item border-bottom text-white" href="#">Date</a>
+    <a class="dropdown-item border-bottom text-white" href="#">User</a>
+    <a class="dropdown-item border-bottom text-white" href="#">Department</a>
+</div>
+</div>
+
+
+<!-- Search -->
+
+<div class="mr-1 w-100">
+
+	<form class="w-100">
+		<input type="submit" name="submit" style="float: right;" class="ml-1 btn btn-success rounded-pill">
+		<input type="search" name="search" style="border-radius: 15px;padding: 5px;width: 60%;float: right;">	
+	</form>
+
+</div>
+</div>
