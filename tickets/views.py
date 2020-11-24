@@ -97,7 +97,7 @@ def change_status(request,id,status):
 	elif status == 'pending':
 		ticket.status = 'Pending';
 	else:
-		ticket.status = 'Close';
+		ticket.status = 'Closed';
 
 	# pending # must be key (Pending)
 	ticket.save();
@@ -163,11 +163,48 @@ def new_category(request):
 
 
 
+find = {
+	'status':'all',
+	'priority':'all',
+}
+
 #tickets
 def tickets(request):
 	categories = Category.objects.all();
+
+	tickets = Tickets.objects.all();
+
+	status = request.GET.get('status'); #all
+	priority = request.GET.get('priority'); # none
+
+	#open # critical
+	# error repead choose
+	if status and status != 'all' or find['status'] != 'all':
+		if status:
+			find['status'] = status;
+		tickets = tickets & Tickets.objects.filter(status=find['status'].capitalize());#status=all
+	else:
+		find['status'] = 'all';
+
+	if priority and priority != 'all' or find['priority'] != 'all':
+		if priority:
+			find['priority'] = priority;
+		tickets = tickets & Tickets.objects.filter(priority=find['priority']);
+	else:
+		find['priority'] = 'all';
+
+
+	for k,f in find.items():
+		print(f);
+
+
+
+
+	#page_obj,tickets = paginated(request,tickets,3);
 	return render(request,'tickets/tickets.html',{'ticket':'active',
 												  'categories':categories,
+												  'tickets':tickets,
+												  #'page_obj':page_obj
 													});
 
 def paginated(request,objects,number):

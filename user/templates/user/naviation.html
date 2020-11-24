@@ -37,25 +37,22 @@
   </div>
 
 
-  <div class="row mr-5 bg-success rounded-pill" style="margin: 0px;padding:3px" >
-  <ul style="list-style:none;list-style-type:none;margin: 0px;padding: 0px;">
-  <li style="float: right;">
-  <img src = '{{user.profile.photo.url}}' class="rounded-circle" style="width:50px; height:50px;">
-  </li>
-   <li class="nav-item dropdown" style="float: right;">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <h6 class="text-white">{{user.username}}</h6>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{% url 'edit'%}">Profile</a>
-          <a class="dropdown-item" href="{% url 'password_change'%}">Change Password</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'logout'%}">Logout</a>
-          
-        </div>
-    </li>
-  </ul>
-</div>
+
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary border rounded-pill m-1 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{user.username}}
+            </button>
+            <div class="dropdown-menu bg-primary border">
+              <a class="dropdown-item text-white border-bottom" href="{% url 'edit'%}">Profile</a>
+              <a class="dropdown-item text-white border-bottom" href="{% url 'password_change'%}">Change Password</a>
+              <a class="dropdown-item text-white" href="{% url 'logout'%}">Logout</a>
+            </div>
+          </div>
+
+
+          <img src = '{{user.profile.photo.url}}' class="rounded-circle border border-primary mr-5" style="width:50px; height:50px;">
+
   
 </nav>
 

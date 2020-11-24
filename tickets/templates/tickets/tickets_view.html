@@ -1,0 +1,82 @@
+<table class="table table-bordered mt-5">
+	<thead class="bg-secondary">
+		<tr>
+			<th scope="col" class="text-white">PROFILE</th>
+			<th scope="col" class="text-white">TITLE</th>
+			<th scope="col" class="text-white">DEPARTMENT</th>
+			<th scope="col" class="text-white">STATUS</th>
+			<th scope="col" class="text-white">PRIORITY</th>
+			<th scope="col" class="text-white">CATEGORY</th>
+			<th scope="col" class="text-white">DATE</th>
+
+
+
+			<tbody>
+		{% for ticket in tickets  %} 
+			<tr>
+				<!- Profile -->
+				<td>
+					<div style="display: inline-flex;">
+						<a href="{% url 'user-detail-view' id=user.id %}">
+							<img src="{{ticket.user.profile.photo.url}}" alt="profile"
+							width="50" height="50"
+							class="border border-primary rounded-circle mr-3">
+						</a>
+						<div>
+							<a href="{% url 'user-detail-view' id=user.id %}">
+								<h5 style="color: #0849AA;">{{ticket.user.username}}</h5>
+							</a>
+							<p style="font-size: 0.8em;color: #7EA6E0;">{{ticket.user.date_joined}}</p>
+						</div>
+					</div>
+				</td>
+
+				<td>
+					<a href="{% url 'ticket-detail' id=ticket.id %}">
+					{{ticket.subject}}
+					</a>
+				</td>
+
+				<td>{{ticket.name}}</td>
+
+
+
+
+				{% if ticket.status == 'Open' %}
+				<td class="bg-danger text-white">Open</td>
+				{% elif ticket.status == 'Close' %}
+				<td class="bg-success text-white">Close</td>
+				{% else %}
+				<td class="bg-secondary text-white">Pending</td>
+				{% endif %}
+
+
+				
+
+
+				{% if ticket.priority == 'critical' %}
+				<td class="bg-danger text-white">Critical</td>
+
+				{% elif ticket.priority == 'urgent' %}
+				<td class="bg-secondary text-white">Urgent</td>
+
+				{% elif ticket.priority == 'normal' %}
+				<td class="bg-primary text-white">Normal</td>
+
+				{% else %}
+				<td class="bg-success text-white">Not Important</td>
+				{% endif %}
+
+
+				<td>{{ticket.category.name}}</td>
+				<td>{{ticket.created}}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+			
+
+		</tr>
+	</thead>
+
+
+</table>
