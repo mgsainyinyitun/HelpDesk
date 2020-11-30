@@ -166,32 +166,110 @@ def new_category(request):
 find = {
 	'status':'all',
 	'priority':'all',
+	'category':'all',
+	'cat_none':False,
+	'sort':'none',
+	'order':'descending',
 }
 
 #tickets
 def tickets(request):
 	categories = Category.objects.all();
 
-	tickets = Tickets.objects.all();
-
 	status = request.GET.get('status'); #all
 	priority = request.GET.get('priority'); # none
+	category = request.GET.get('category'); # all,.......
+	sort = request.GET.get('sort');
+	order = request.GET.get('order');
 
-	#open # critical
-	# error repead choose
-	if status and status != 'all' or find['status'] != 'all':
+	
+	# SORTING # sort not by user id
+	if sort:
+		find['sort'] = sort;
+
+
+	if order:
+		find['order'] = order;
+
+
+	if find['order'] == 'ascending':
+		if find['sort'] == 'date':
+			tickets =Tickets.objects.all().order_by('created');
+		elif find['sort'] == 'user':
+			tickets = Tickets.objects.all().order_by('user');
+		elif find['sort'] == 'department':
+			tickets = Tickets.objects.all().order_by('name');
+		else:
+			tickets = Tickets.objects.all();
+	elif find['order'] == 'descending':
+		if find['sort'] == 'date':
+			tickets =Tickets.objects.all().order_by('-created');
+		elif find['sort'] == 'user':
+			tickets = Tickets.objects.all().order_by('-user');
+		elif find['sort'] == 'department':
+			tickets = Tickets.objects.all().order_by('-name');
+		else:
+			tickets = Tickets.objects.all();
+
+
+
+	#tickets = Tickets.objects.all().order_by('user');
+
+
+
+
+
+
+	# STATUS FILTER
+	if (status and status != 'all') or (find['status'] != 'all' and status != 'all'):
 		if status:
 			find['status'] = status;
 		tickets = tickets & Tickets.objects.filter(status=find['status'].capitalize());#status=all
 	else:
 		find['status'] = 'all';
 
-	if priority and priority != 'all' or find['priority'] != 'all':
+
+	# PRIORITY FILTER
+	if (priority and priority != 'all') or (find['priority'] != 'all' and priority != 'all'):
 		if priority:
 			find['priority'] = priority;
 		tickets = tickets & Tickets.objects.filter(priority=find['priority']);
 	else:
 		find['priority'] = 'all';
+
+	# CATEGORY FILTER
+	if (category and category != 'all' and category != 'none') or (find['category'] != 'all' and category != 'all' and category != 'none'):
+		if category:
+			find['category'] = category;
+
+		cat = Category.objects.get(slug = find['category']); #####Not None
+		tickets = tickets & Tickets.objects.filter(category = cat);
+	else:
+		find['category'] = 'all';
+
+
+	# FILTER FOR CATEGORY NONE
+
+	# category != Null && category != none
+	# must reset mem when category == all, other cat.....
+	if (category and category != 'none'):
+		find['cat_none'] = False;
+
+
+	# exclude all category # exclude(category = 'computer-error');
+
+	if (category == 'none' or find['cat_none'] == True):
+		if category == 'none':
+			find['cat_none'] = True; # Must be false if 
+
+		categories = Category.objects.all();
+		for cat in categories:
+			tickets = tickets & Tickets.objects.exclude(category = cat);
+
+
+
+
+
 
 
 	for k,f in find.items():
@@ -204,6 +282,7 @@ def tickets(request):
 	return render(request,'tickets/tickets.html',{'ticket':'active',
 												  'categories':categories,
 												  'tickets':tickets,
+												  'find':find
 												  #'page_obj':page_obj
 													});
 

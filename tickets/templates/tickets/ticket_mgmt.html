@@ -1,13 +1,13 @@
 <div style="display: flex;width: 100%;">
 <div class="dropdown mr-1">
   <button class="btn btn-secondary rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    STATUS
+    <i class="fas fa-thermometer-quarter mr-2"></i>STATUS
   </button>
   <div class="dropdown-menu bg-secondary" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item border-bottom text-white" href="?status=all">All</a>
-    <a class="dropdown-item border-bottom text-white" href="?status=open">Open</a>
-    <a class="dropdown-item border-bottom text-white" href="?status=closed">Close</a>
-    <a class="dropdown-item text-white" href="?status=pending">Pending</a>
+    <a class="dropdown-item border-bottom text-white" href="?status=all"><i class="fas fa-align-justify mr-2"></i>All</a>
+    <a class="dropdown-item border-bottom text-white" href="?status=open"><i class="fas fa-envelope-open mr-2"></i>Open</a>
+    <a class="dropdown-item border-bottom text-white" href="?status=closed"><i class="fas fa-envelope mr-2"></i>Close</a>
+    <a class="dropdown-item text-white" href="?status=pending"><i class="fas fa-spinner fa-pulse mr-2"></i>Pending</a>
   </div>
 </div>
 
@@ -15,42 +15,56 @@
 
 <div class="dropdown mr-1">
   <button class="btn btn-info rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    PRIORITY
+    <i class="fab fa-product-hunt mr-2"></i>PRIORITY
   </button>
   <div class="dropdown-menu bg-info" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item border-bottom text-white" href="?priority=all">All</a>
-    <a class="dropdown-item border-bottom text-white" href="?priority=critical">Critical</a>
-    <a class="dropdown-item border-bottom text-white" href="?priority=urgent">Urgent</a>
-    <a class="dropdown-item text-white border-bottom" href="?priority=normal">Normal</a>
-    <a class="dropdown-item text-white" href="?priority=not_important">Not Important</a>
+    <a class="dropdown-item border-bottom text-white" href="?priority=all"><i class="fas fa-align-justify mr-2"></i>All</a>
+    <a class="dropdown-item border-bottom text-white" href="?priority=critical"><i class="fas fa-exclamation-triangle mr-2"></i>Critical</a>
+    <a class="dropdown-item border-bottom text-white" href="?priority=urgent"><i class="fas fa-exclamation-circle mr-2"></i>Urgent</a>
+    <a class="dropdown-item text-white border-bottom" href="?priority=normal"><i class="fas fa-star mr-2"></i>Normal</a>
+    <a class="dropdown-item text-white" href="?priority=not_important"><i class="fas fa-mug-hot mr-2"></i>Not Important</a>
   </div>
 </div>
 
 
 <div class="dropdown mr-1">
   <button class="btn btn-info rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    CATEGORY
+    <i class="fas fa-stream mr-2"></i>CATEGORY
   </button>
   <div class="dropdown-menu bg-info" aria-labelledby="dropdownMenuButton">
 
-    <a class="dropdown-item border-bottom text-white" href="#">All</a>
+    <a class="dropdown-item border-bottom text-white" href="?category=all"><i class="fas fa-align-justify mr-2"></i>All</a>
+    <a class="dropdown-item border-bottom text-white" href="?category=none"><i class="fas fa-border-none mr-2"></i>None</a>
     {% for category in categories %}
-    <a class="dropdown-item border-bottom text-white" href="#">{{category.name}}</a>
+    <a class="dropdown-item border-bottom text-white" href="?category={{category.slug}}"><i class="fas fa-caret-right mr-2"></i>{{category.name}}</a>
     {% endfor %}
   </div>
 </div>
 
 <div class="dropdown mr-1">
   <button class="btn btn-info rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    SORT BY
+    <i class="fas fa-sort mr-2"></i>SORT BY
   </button>
   <div class="dropdown-menu bg-info" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item border-bottom text-white" href="#">None</a>
-    <a class="dropdown-item border-bottom text-white" href="#">Date</a>
-    <a class="dropdown-item border-bottom text-white" href="#">User</a>
-    <a class="dropdown-item border-bottom text-white" href="#">Department</a>
+    <a class="dropdown-item border-bottom text-white" href="?sort=none"><i class="fas fa-border-none mr-2"></i>None</a>
+    <a class="dropdown-item border-bottom text-white" href="?sort=date"><i class="fas fa-calendar-alt mr-2"></i>Date</a>
+    <a class="dropdown-item border-bottom text-white" href="?sort=user"><i class="fas fa-user-friends mr-2"></i>User ID</a>
+    <a class="dropdown-item border-bottom text-white" href="?sort=department"><i class="fas fa-warehouse mr-2"></i>Department</a>
 </div>
 </div>
+
+
+<div class="dropdown mr-1">
+  <button class="btn btn-info rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fas fa-sort mr-2"></i>ORDERING
+  </button>
+  <div class="dropdown-menu bg-info" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item border-bottom text-white" href="?order=ascending"><i class="fas fa-sort-amount-down-alt mr-2"></i>Ascending</a>
+    <a class="dropdown-item border-bottom text-white" href="?order=descending"><i class="fas fa-sort-amount-down mr-2"></i>Descending</a>
+</div>
+</div>
+
+
 
 
 <!-- Search -->
