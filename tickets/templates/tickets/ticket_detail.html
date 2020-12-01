@@ -78,8 +78,25 @@
 			  </div>
 			</div>
 		{% endif %}
+
+
+		<div class="btn-group ml-1">
+			  <button type="button" class="btn btn-info dropdown-toggle rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Categories
+			  </button>
+			  <div class="dropdown-menu bg-primary">
+			    {% for category in categories %}
+			    <a class="dropdown-item text-white border-bottom" href="category/{{category.slug}}">{{category.name}}</a>
+			    {% endfor %}
+
+
+			  </div>
+		</div>
 	</div>
 	</div>
+
+
+	
 
 	<!-- View Comments -->
 

@@ -14,14 +14,11 @@
 
     <script src="https://kit.fontawesome.com/0c56c59398.js" crossorigin="anonymous"></script>
   </head>
-  <body id="blackground">
+  <body>
 
 
   {% if user.is_authenticated %}
   {% include 'user/naviation.html'%}
-  {% else %}
-
-  {% include 'user/info.html' %}
   {% endif %}
     
     <div class="container-fluid">

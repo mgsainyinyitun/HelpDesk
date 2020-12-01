@@ -5,7 +5,7 @@ from .forms import CommentForm, TicketForm,CategoryForm;
 from django.contrib.auth.models import User;
 from django import forms;
 from django.core.paginator import Paginator,PageNotAnInteger;
-
+from django.contrib import messages;
 from django.utils.text import slugify;
 
 
@@ -46,6 +46,7 @@ def dashboard(request):
 @login_required
 def ticket_detail(request,id):
 	ticket = Tickets.objects.get(pk=id);
+	categories = Category.objects.all();
 
 	pri_design = '';
 	priority = '';
@@ -84,6 +85,7 @@ def ticket_detail(request,id):
 														'pri_design':pri_design,
 														'priority':priority,
 														'dashboard':'active',
+														'categories':categories
 														});
 
 
@@ -101,7 +103,20 @@ def change_status(request,id,status):
 
 	# pending # must be key (Pending)
 	ticket.save();
+	messages.success(request,"Status have been change successfully");
 	return redirect('ticket-detail',id=id);
+
+
+
+
+@login_required
+def change_category(request,id,category):
+	ticket = Tickets.objects.get(pk = id);
+	cat = Category.objects.get(slug = category);
+	ticket.category = cat;
+	ticket.save();
+	messages.success(request,"Category have been Assigned successfully");
+	return redirect('ticket-detail',id = id);
 
 
 @login_required
@@ -196,7 +211,7 @@ def tickets(request):
 		if find['sort'] == 'date':
 			tickets =Tickets.objects.all().order_by('created');
 		elif find['sort'] == 'user':
-			tickets = Tickets.objects.all().order_by('user');
+			tickets = Tickets.objects.all().order_by('user__username');
 		elif find['sort'] == 'department':
 			tickets = Tickets.objects.all().order_by('name');
 		else:
@@ -205,15 +220,19 @@ def tickets(request):
 		if find['sort'] == 'date':
 			tickets =Tickets.objects.all().order_by('-created');
 		elif find['sort'] == 'user':
-			tickets = Tickets.objects.all().order_by('-user');
+			tickets = Tickets.objects.all().order_by('-user__username');
 		elif find['sort'] == 'department':
 			tickets = Tickets.objects.all().order_by('-name');
 		else:
 			tickets = Tickets.objects.all();
 
 
+	#SEARCHING
+	search_txt = request.GET.get('search');
+	#print("SEARCH_TXT",search_txt)
+	if search_txt:
+		tickets = tickets & Tickets.objects.filter(subject__icontains = search_txt);
 
-	#tickets = Tickets.objects.all().order_by('user');
 
 
 
@@ -257,7 +276,7 @@ def tickets(request):
 
 
 	# exclude all category # exclude(category = 'computer-error');
-
+	cat_none  = False;
 	if (category == 'none' or find['cat_none'] == True):
 		if category == 'none':
 			find['cat_none'] = True; # Must be false if 
@@ -265,10 +284,7 @@ def tickets(request):
 		categories = Category.objects.all();
 		for cat in categories:
 			tickets = tickets & Tickets.objects.exclude(category = cat);
-
-
-
-
+		cat_none = True;
 
 
 
@@ -278,12 +294,13 @@ def tickets(request):
 
 
 
-	#page_obj,tickets = paginated(request,tickets,3);
+	page_obj,tickets = paginated(request,tickets,5);
 	return render(request,'tickets/tickets.html',{'ticket':'active',
 												  'categories':categories,
 												  'tickets':tickets,
-												  'find':find
-												  #'page_obj':page_obj
+												  'find':find,
+												  'cat_none':cat_none,
+												  'page_obj':page_obj
 													});
 
 def paginated(request,objects,number):

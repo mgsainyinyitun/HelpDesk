@@ -1,8 +1,8 @@
 
 
 <div class="mt-5">
-<span class="badge badge-danger rounded-pill">status:{{find.status}}</span>
-<span class="badge badge-danger rounded-pill">priority:{{find.priority}}</span>
+<span class="badge badge-danger rounded-pill">{{find.status}}</span>
+<span class="badge badge-danger rounded-pill">{{find.priority}}</span>
 
 
 <!-- for category 
@@ -12,17 +12,23 @@
 -->
 {% for category in categories %}
 {% if category.slug == find.category %}
-	<span class="badge badge-danger rounded-pill">category:{{category.name}}</span> 
-{% elif find.category == 'all' %}
-	<span class="badge badge-danger rounded-pill">category:All</span> 
-{% elif find.category == 'none' %}
-	<span class="badge badge-danger rounded-pill">category:None</span> 
+	<span class="badge badge-danger rounded-pill">{{category.name}}</span>  
 {% endif %}
 {% endfor %}
 
 
-<span class="badge badge-danger rounded-pill">sorting:{{find.sort}}</span>
-<span class="badge badge-danger rounded-pill">order:{{find.order}}</span>
+{% if find.category == 'all' and cat_none == False %}
+	<span class="badge badge-danger rounded-pill">all</span>
+{% endif %}
+
+
+{% if cat_none == True %}
+	<span class="badge badge-danger rounded-pill">none</span>
+{% endif %}
+
+
+<span class="badge badge-danger rounded-pill">{{find.sort}}</span>
+<span class="badge badge-danger rounded-pill">{{find.order}}</span>
 </div>
 
 <table class="table table-bordered mt-2">
