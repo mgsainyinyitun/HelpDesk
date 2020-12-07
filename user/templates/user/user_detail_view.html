@@ -1,5 +1,4 @@
 {% extends 'user/base.html' %}
-
 {% block content %}
 
 <div class="container card p-3">
@@ -125,6 +124,18 @@
 			padding: 4px;border-radius: 10px;width: 70%;text-align: center;color: white;
 			">
 			{{d_user.last_login}}
+			</div>
+			</div>
+		</div>
+
+		<!-- edit and delete -->
+		<div class="row">
+			<div class="col-6">
+				
+			</div>
+
+			<div class="col-6">
+				{% include 'user/modal.html' %}
 			</div>
 			</div>
 		</div>

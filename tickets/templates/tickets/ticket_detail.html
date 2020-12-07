@@ -15,7 +15,11 @@
 			>
 		</div>
 		<div>
-			<h5 style="color: blue;">{{ticket.name}}</h5>
+			<h5 style="color: blue;">{{ticket.user.username}}
+				<span class="badge badge-warning rounded-pill"
+					style="font-size: 0.5em;" 
+				>{{ticket.name}}</span>
+			</h5>
 			<p style="font-size: 0.8em;color: #7EA6E0;">{{ticket.updated}}</p>
 		</div>
 	</div>
@@ -27,7 +31,13 @@
 		<h3 style="
 			color: #7EA6E0;
 			font-size: 2.5em;
-		">{{ticket.subject}}</h3>
+		">{{ticket.subject}}
+
+		<span class="badge badge-info rounded-pill"
+			  style="font-size: 0.3em;" 
+		>{{ticket.category}}</span>
+
+		</h3>
 		<p style="text-align: justify;font-size: 1.3em;
 		color: #470070;
 		">{{ticket.description}}</p>
@@ -113,7 +123,7 @@
 				>
 			</div>
 			<div>
-				<h5 style="font-size: 0.9em;color:blue;">{{comment.name}}</h5>
+				<h5 style="font-size: 0.9em;color:blue;">{{comment.user.username}}</h5>
 				<p style="font-size: 0.7em;color:#7EA6E0">{{comment.updated}}</p>
 			</div>
 		</div>
@@ -123,7 +133,7 @@
 		<div>
 			<p style="
 				color: #006088;
-			">{{comment.body}}</p>
+			">{{comment.comment}}</p>
 		</div>
 		<hr>
 
@@ -138,8 +148,8 @@
 		<div class="col">
 			<form method="POST" novalidate>
 				{% csrf_token %}
-				{{comment_form|crispy}}
-				<input type="submit" name="submit" value="Submit" class="btn btn-info mb-5">		
+				{{comment_form.comment|as_crispy_field}}
+				<input type="submit" name="submit" value="Comment" class="btn btn-info mb-5">		
 			</form>	
 		</div>
 		<div class="col"></div>

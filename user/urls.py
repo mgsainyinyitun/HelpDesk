@@ -17,6 +17,7 @@ urlpatterns = [
     path('tech/',views.tech_view,name='tech-view'),
     path('tech/<str:role>',views.role_view,name='role-view'),
     path('tech/detail/<int:id>',views.user_detail_view,name='user-detail-view'),
+    path('tech/detail/delete/<int:id>',views.user_delete,name='user-delete'),
     #customer
     path('customer/',views.customer_view,name='customer-view'),
     path('customer/new',views.new_customer,name='new-customer'),

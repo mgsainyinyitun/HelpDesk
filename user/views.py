@@ -97,9 +97,15 @@ def user_detail_view(request,id):
 	else:
 		customer='active';
 
+
+	user_form = UserForm();
+	profile_form = ProfileForm();
+
 	return render(request,'user/user_detail_view.html',{'tech':tech,
 														'customer':customer,
-														'd_user':d_user
+														'd_user':d_user,
+														'user_form':user_form,
+														'profile_form':profile_form,
 														});
 
 # for customer
@@ -138,6 +144,21 @@ def new_customer(request):
 													 'profile_form':profile_form,
 													 'customer_form':customer_form,
 														});
+
+
+
+@login_required
+def user_delete(request,id):
+	user = User.objects.get(pk=id);
+
+	role = user.is_staff; # true / false
+
+	user.delete();
+
+	if role:
+		return redirect('tech-view');
+	else:
+		return redirect('customer-view');
 
 
 

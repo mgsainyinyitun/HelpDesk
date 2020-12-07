@@ -75,6 +75,7 @@ def ticket_detail(request,id):
 			new_comment.ticket = ticket;
 			new_comment.user = request.user;
 			new_comment.save();
+			comment_form = CommentForm();
 
 	else:
 		comment_form = CommentForm();
@@ -84,7 +85,7 @@ def ticket_detail(request,id):
 														'comments':comments,
 														'pri_design':pri_design,
 														'priority':priority,
-														'dashboard':'active',
+														'nav_ticket':'active',
 														'categories':categories
 														});
 
@@ -295,7 +296,7 @@ def tickets(request):
 
 
 	page_obj,tickets = paginated(request,tickets,5);
-	return render(request,'tickets/tickets.html',{'ticket':'active',
+	return render(request,'tickets/tickets.html',{'nav_ticket':'active',
 												  'categories':categories,
 												  'tickets':tickets,
 												  'find':find,

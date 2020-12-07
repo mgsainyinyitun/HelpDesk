@@ -12,27 +12,39 @@
 			>
 		</div>
 		<div>
-			<h5 style="color: blue;">{{ticket.user.username}}</h5>
+			<h5 style="color: blue;">{{ticket.user.username}}
+				<span class="badge badge-warning rounded-pill"
+					style="font-size: 0.5em;" 
+				>{{ticket.name}}</span>
+
+			</h5>
 			<p style="font-size: 0.8em;color: #7EA6E0;">{{ticket.updated}}</p>
 		</div>
 	</div>
 
 	<!-- for Contents -->
-	<a href="{% url 'ticket-detail' id=ticket.id %}"><h4 style="color: #7EA6E0">{{ticket.subject}}</h4></a>
+	<a href="{% url 'ticket-detail' id=ticket.id %}"><h4 style="color: #7EA6E0">{{ticket.subject}} <span
+			class = "badge badge-info rounded-pill"
+			style = "font-size: 0.5em;"
+		>{{ticket.category}}</span></h4>
+
+	</a>
+
+
 	<p>{{ticket.description|truncatewords:30 }}</p>
 	
 	{% if ticket.status == 'Open' %}
 		<div class="badge badge-danger rounded-pill">Open</div>
 		{% include 'tickets/priority.html' %}
-		<p class="badge badge-secondary rounded-pill">{{ticket.name}}</p>
+		
 	{% elif ticket.status == 'Pending' %}
 		<div  class="badge badge-info rounded-pill">Pending</div>
 		{% include 'tickets/priority.html' %}
-		<p class="badge badge-secondary rounded-pill">{{ticket.name}}</p>
+		
 	{% else %}
 		<div  class="badge badge-success rounded-pill">Closed</div>
 		{% include 'tickets/priority.html' %}
-		<p class="badge badge-secondary rounded-pill">{{ticket.name}}</p>
+		
 	{% endif %}
 	<hr>
 

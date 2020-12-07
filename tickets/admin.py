@@ -7,7 +7,7 @@ class TicketsAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-	list_display = ['user','ticket','name','updated'];
+	list_display = ['user','ticket','updated'];
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

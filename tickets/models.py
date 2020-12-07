@@ -39,8 +39,8 @@ class Tickets(models.Model):
 class Comment(models.Model):
 	ticket = models.ForeignKey(Tickets,on_delete=models.CASCADE);
 	user = models.ForeignKey(User,on_delete=models.CASCADE);
-	name = models.CharField(max_length=200);
-	body = models.TextField();
+	#name = models.CharField(max_length=200);
+	comment = models.TextField();
 	updated = models.DateTimeField(auto_now=True);
 	def __str__(self):
-		return self.name;
+		return self.user.username;

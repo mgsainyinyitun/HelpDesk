@@ -1,10 +1,18 @@
 from django import forms;
 from .models import Comment, Tickets,Category;
+from crispy_forms.helper import FormHelper
 
 class CommentForm(forms.ModelForm):
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs);
+		self.helper = FormHelper(self);
+		form_show_labels = False;
+
+
+		
 	class Meta:
 		model = Comment;
-		fields = ('name','body');
+		fields = ('comment',);
 
 class TicketForm(forms.ModelForm):
 	class Meta:
