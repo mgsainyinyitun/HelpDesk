@@ -98,8 +98,18 @@ def user_detail_view(request,id):
 		customer='active';
 
 
-	user_form = UserForm();
-	profile_form = ProfileForm();
+	if request.method == "POST":
+		user_form = UserForm(instance=d_user,data=request.POST);
+		profile_form = ProfileForm(instance=d_user.profile,data=request.POST,files=request.FILES);
+		if user_form.is_valid() and profile_form.is_valid():
+			user_form.save();
+			profile_form.save();
+			messages.success(request,"User data have been changed successfully");
+		else:
+			messages.error(request,"Cannot changed used data, try again!");
+	else:
+		user_form = UserForm(instance=d_user);
+		profile_form = ProfileForm(instance=d_user.profile);
 
 	return render(request,'user/user_detail_view.html',{'tech':tech,
 														'customer':customer,
@@ -154,6 +164,7 @@ def user_delete(request,id):
 	role = user.is_staff; # true / false
 
 	user.delete();
+	messages.success(request,"User delete successful!");
 
 	if role:
 		return redirect('tech-view');

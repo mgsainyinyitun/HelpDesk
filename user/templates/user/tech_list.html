@@ -28,9 +28,9 @@
 				</td>
 
 				{% if user.is_superuser %}
-					<td class="bg-danger text-white">Admin</td>
+					<td class="align-middle"><span class="bg-danger text-white rounded-pill p-1">Admin</span></td>
 				{% else %}
-					<td class="bg-success text-white">Technician</td>
+					<td class="align-middle"><span class="bg-success text-white rounded-pill p-1">Technician</span></td>
 				{% endif %}
 
 				<td>{{user.email}}</td>

@@ -11,6 +11,8 @@ urlpatterns = [
     path('status/<str:status>',views.status_view,name='status-view'),
     #category
     path('category/new',views.new_category,name='new-category'),
+    path('category/delete/<slug:cat>',views.delete_category,name='delete-category'),
+    path('category/edit/<slug:cat>',views.edit_category,name='edit-category'),
     #tickets
     path('tickets',views.tickets,name='tickets'),
 ]

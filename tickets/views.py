@@ -169,13 +169,37 @@ def new_category(request):
 			new_category = category_form.save(commit=False);
 			new_category.slug = slugify(new_category.name);
 			new_category.save();
-			return redirect('dashboard');
+			messages.success(request,"Category added successfully");
+			category_form = CategoryForm();
+		else:
+			messages.error(request,"Cannot add category, try again!");
 	else:
 		category_form= CategoryForm();
 
+	categories = Category.objects.all();
+
 	return render(request,'tickets/new_category.html',{ 'category':'active',
 														'category_form':category_form,
+														'categories':categories,
 														});
+
+
+def delete_category(request,cat):
+	category = Category.objects.get(slug=cat);
+	category.delete();
+	messages.success(request,"successfully delete category!")
+	return redirect('new-category');
+
+
+
+def edit_category(request,cat):
+	category = Category.objects.get(slug=cat);
+	name = request.GET.get('name');
+	category.name = name;
+	category.slug = slugify(name);
+	category.save();
+	messages.success(request,"Successfully edit Category");
+	return redirect('new-category');
 
 
 

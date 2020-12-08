@@ -3,7 +3,13 @@
 <div class="mb-3">
 <div class="btn btn-info rounded-pill">{{users.count}} Customer</div>
 
-<a href="{% url 'new-customer' %}" class="btn btn-info rounded-circle"><i class="fas fa-plus"></i></a>
+<a onmouseover="displayNewCustomer()"  onmouseout="noDisplayNewCustomer()"  href="{% url 'new-customer' %}" class="btn btn-info rounded-circle"><i class="fas fa-plus"></i></a>
+
+
+<span class="badge badge-info rounded-pill p-2" id="new-customer" style="display: none;">
+	NEW CUSTOMER
+</span>
+
 </div>
 
 {% include 'user/customer_list.html' %}
