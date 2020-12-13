@@ -18,7 +18,7 @@
         </li>
 
         <li class="nav-item {{category}}">
-          <a class="nav-link" href="{% url 'new-category' %}"><i class="fas fa-stream"> NEW CATEGORY</i></a>
+          <a class="nav-link" href="{% url 'new-category' %}"><i class="fas fa-stream"> CATEGORY</i></a>
         </li>
         {% endif %}
 
@@ -60,9 +60,12 @@
 
 <ul style="list-style-type:none; padding: 0px;margin: 2px;">
     {% for message in messages %}
-    <li 
-       class="bg-success text-white" style="padding: 2px;text-align: center;">
-        {{ message }}
+    <li style="display: flex;justify-content: center;">
+    <span class="bg-success text-white w-100 rounded-pill" style="text-align: center;">
+      {{ message }}
+    </span>
+      
+       
     </li>
     {% endfor %}
 </ul>

@@ -46,10 +46,10 @@
       </div>
       <div class="modal-body">
 
-        <form>
+        <form method="POST">
+          {% csrf_token%}
           {{user_form|crispy}}
           {{profile_form|crispy}}
-
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 20%;">Cancel</button>

@@ -162,19 +162,23 @@ def status_view(request,status):
 														});
 #category
 @login_required
-def new_category(request):
+def new_category(request,category = None):
 	if request.method == 'POST':
 		category_form = CategoryForm(data=request.POST);
 		if category_form.is_valid():
 			new_category = category_form.save(commit=False);
 			new_category.slug = slugify(new_category.name);
 			new_category.save();
-			return redirect('dashboard');
+			category_form = CategoryForm();
+			messages.success(request,"Category Create Successfully");
 	else:
 		category_form= CategoryForm();
 
+	categories = Category.objects.all();
+
 	return render(request,'tickets/new_category.html',{ 'category':'active',
 														'category_form':category_form,
+														'categories':categories,
 														});
 
 
@@ -302,7 +306,27 @@ def tickets(request):
 												  'find':find,
 												  'cat_none':cat_none,
 												  'page_obj':page_obj
+				
 													});
+
+
+
+
+def delete_category(request,category):
+	cat = Category.objects.get(slug=category);
+	cat.delete();
+	messages.success(request,'Delete Category Successfully');
+	return redirect('new-category');
+
+def edit_category(request,category):
+	name = request.GET.get('name');
+	cat = Category.objects.get(slug=category);
+	cat.name = name;
+	cat.slug = slugify(name);
+	cat.save();
+	messages.success(request,"Edit Category Successful");
+
+	return redirect('new-category');
 
 def paginated(request,objects,number):
 	paginator = Paginator(objects,number);

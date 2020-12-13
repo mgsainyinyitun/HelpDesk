@@ -97,9 +97,18 @@ def user_detail_view(request,id):
 	else:
 		customer='active';
 
-
-	user_form = UserForm();
-	profile_form = ProfileForm();
+	if request.method== "POST":
+		user_form = UserForm(instance=d_user,data = request.POST);
+		profile_form = ProfileForm(instance=d_user.profile,data=request.POST,files = request.FILES);
+		if user_form.is_valid() and profile_form.is_valid():
+			user_form.save();
+			profile_form.save();
+			messages.success(request,"Edit successfully");
+		else:
+			messages.error(request,"Edit Unsuccessfully");
+	else:
+		user_form = UserForm(instance=d_user);
+		profile_form = ProfileForm(instance=d_user.profile);
 
 	return render(request,'user/user_detail_view.html',{'tech':tech,
 														'customer':customer,

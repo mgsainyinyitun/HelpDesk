@@ -4,10 +4,105 @@ Category Form
 {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h1>New Category</h1>
-<form method="POST" novalidate>
-	{% csrf_token %}
-	{{ category_form|crispy }}
-	<input type="submit" value="ADD" class="btn btn-success">
-</form>
+<div class="mt-5" style="display: flex;flex-direction: column;align-items: center;">
+	
+	<form method="POST" novalidate class="w-25 p-3"
+	style="border: 1px solid rgba(0,0,0,0.5);
+		   border-radius: 5px;
+		   box-shadow: 4px 2px 10px 2px #888888;" 
+	>
+		<h1 class="mb-4 text-primary">New Category</h1>
+		{% csrf_token %}
+		{{ category_form|crispy }}
+		<input type="submit" value="ADD" class="btn btn-success">
+		
+	</form>
+</div>
+
+
+<div class="mt-5 p-1" style="display: flex;flex-direction: column;align-items: center;">
+<div 
+class="p-1 w-25"
+style="border: 1px solid rgba(0,0,0,0.5);
+border-radius: 5px;
+box-shadow: 4px 2px 10px 2px #888888;">
+
+<h1 class="text-primary">CATEGORIES</h1>
+<table class="table">
+	
+	{% for category in categories %}
+	<tr>
+		<td>
+			{{category.name}}
+		</td>
+		<td>
+			<!-- Edit trigger modal -->
+		
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#e-{{category.slug}}">
+			
+				EDIT
+		
+			</button>
+
+		
+			<!-- Edit Modal -->
+			<div class="modal fade" id="e-{{category.slug}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					</div>
+					<div class="modal-body">
+				<form method="GET" action="edit/{{category.slug}}">
+					{% csrf_token %}
+					<input type="text" name="name" style="width: 100%;border-radius: 10px;border-color:rgba(blue,0.1);height: 40px;"  value="{{category.name}}">
+					
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<input type="submit" value="Change" class="btn btn-primary">
+				</form>
+					</div>
+				</div>
+				</div>
+			</div>
+			
+		</td>
+		<td>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#{{category.slug}}">
+				DELETE
+			</button>
+			<!-- Modal -->
+			<div class="modal fade" id="{{category.slug}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					</div>
+					<div class="modal-body">
+					Are you sure want to delete <span>{{category.name}} </span>?
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<a href="delete/{{category.slug}}" class="btn btn-primary">Yes</a>
+					</div>
+				</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+
+	{% endfor %}
+
+</table>
+</div>
+</div>
+
 {% endblock %}
