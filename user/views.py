@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
 from . forms import UserRegistrationForm,ProfileForm,UserForm,CustomerRegistrationForm;
-from django.contrib.auth.decorators import login_required;
+from django.contrib.auth.decorators import login_required,user_passes_test;
 from django.contrib import messages;
 from django.contrib.auth.models import User;
 from tickets.views import paginated;
+from .auth import checkIfAdmin,checkIfTech,checkIfCustomer
 
+@user_passes_test(checkIfAdmin,login_url='error')
 @login_required
 def register(request):
 	if request.method == 'POST':
@@ -35,6 +37,7 @@ def register(request):
 
 
 
+@login_required
 def edit(request):
 	if request.method == "POST":
 		user_form = UserForm(instance= request.user,data=request.POST);
@@ -53,6 +56,7 @@ def edit(request):
 		})
 
 
+@user_passes_test(checkIfAdmin,login_url='error')
 @login_required
 def tech_view(request):
 	users = User.objects.filter(is_staff = True);
@@ -74,7 +78,7 @@ def tech_view(request):
 												 'page_obj':page_obj,
 													});
 
-
+@user_passes_test(checkIfAdmin,login_url='error')
 @login_required
 def role_view(request,role):
 	if role == 'admin':
@@ -86,7 +90,7 @@ def role_view(request,role):
 												});
 
 
-
+@user_passes_test(checkIfAdmin,login_url='error')
 @login_required
 def user_detail_view(request,id):
 	d_user = User.objects.get(pk=id);
@@ -118,17 +122,15 @@ def user_detail_view(request,id):
 														'profile_form':profile_form,
 														});
 
-# for customer
-
+@user_passes_test(checkIfAdmin,login_url='error')
 @login_required
-
 def customer_view(request):
 	users = User.objects.filter(is_superuser=False,is_staff=False);
 	return render(request,'user/customer_view.html',{ 'customer':'active',
 													  'users':users
 														});
 
-
+@user_passes_test(checkIfAdmin,login_url='error')
 @login_required
 def new_customer(request):
 	if request.method == 'POST':
@@ -156,7 +158,7 @@ def new_customer(request):
 														});
 
 
-
+@user_passes_test(checkIfAdmin,login_url='error')
 @login_required
 def user_delete(request,id):
 	user = User.objects.get(pk=id);
@@ -171,5 +173,5 @@ def user_delete(request,id):
 	else:
 		return redirect('customer-view');
 
-
-
+def error(request):
+	return render(request,'user/error.html');

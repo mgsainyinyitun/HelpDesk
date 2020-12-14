@@ -33,9 +33,12 @@
 			font-size: 2.5em;
 		">{{ticket.subject}}
 
+		{% if request.user.is_superuser or request.user.is_staff %}
 		<span class="badge badge-info rounded-pill"
 			  style="font-size: 0.3em;" 
-		>{{ticket.category}}</span>
+		>{{ticket.category}}
+		</span>
+		{% endif %}
 
 		</h3>
 		<p style="text-align: justify;font-size: 1.3em;
@@ -55,7 +58,8 @@
 		<!-- bottom -->
 		{% if ticket.status == 'Open' %}
 
-		<!-- Example single danger button -->
+		<!-- status  button -->
+			{% if request.user.is_superuser or request.user.is_staff %}
 			<div class="btn-group">
 			  <button type="button" class="btn btn-danger dropdown-toggle rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			    Open
@@ -65,9 +69,13 @@
 			    <a class="dropdown-item" href="close">Close</a>
 			  </div>
 			</div>
+			{% else %}
+			<div class="btn btn-danger rounded-pill">Open</div>
+			{% endif %}
 
 
 		{% elif ticket.status == 'Pending' %}
+		{% if request.user.is_superuser or request.user.is_staff %}
 		<div class="btn-group">
 			  <button type="button" class="btn btn-info dropdown-toggle rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			    Pending
@@ -78,6 +86,11 @@
 			  </div>
 		</div>
 		{% else %}
+		<div class="btn btn-info rounded-pill">Open</div>
+		{% endif %}
+		{% else %}
+
+		{% if request.user.is_superuser or request.user.is_staff %}
 		<div class="btn-group">
 			  <button type="button" class="btn btn-success dropdown-toggle rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			    Closed
@@ -87,9 +100,12 @@
 			    <a class="dropdown-item" href="pending">Pending</a>
 			  </div>
 			</div>
+		{% else %}
+		<div class="btn btn-success rounded-pill">Open</div>
+		{% endif %}
 		{% endif %}
 
-
+		{% if request.user.is_superuer %}
 		<div class="btn-group ml-1">
 			  <button type="button" class="btn btn-info dropdown-toggle rounded-pill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			    Categories
@@ -98,10 +114,11 @@
 			    {% for category in categories %}
 			    <a class="dropdown-item text-white border-bottom" href="category/{{category.slug}}">{{category.name}}</a>
 			    {% endfor %}
-
-
 			  </div>
 		</div>
+		{% endif %}
+
+
 	</div>
 	</div>
 

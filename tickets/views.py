@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect;
-from django.contrib.auth.decorators import login_required;
+from django.contrib.auth.decorators import login_required,user_passes_test;
 from .models import Tickets,Comment,Category;
 from .forms import CommentForm, TicketForm,CategoryForm;
 from django.contrib.auth.models import User;
@@ -7,7 +7,7 @@ from django import forms;
 from django.core.paginator import Paginator,PageNotAnInteger;
 from django.contrib import messages;
 from django.utils.text import slugify;
-
+from user.auth import checkIfAdmin,checkIfTech,checkIfCustomer,checkIfAdminOrTech
 
 @login_required
 def dashboard(request):
@@ -91,7 +91,7 @@ def ticket_detail(request,id):
 
 
 
-
+@user_passes_test(checkIfAdminOrTech,login_url='error')
 @login_required
 def change_status(request,id,status):
 	ticket = Tickets.objects.get(pk = id);
@@ -107,9 +107,7 @@ def change_status(request,id,status):
 	messages.success(request,"Status have been change successfully");
 	return redirect('ticket-detail',id=id);
 
-
-
-
+@user_passes_test(checkIfAdmin,login_url='error')
 @login_required
 def change_category(request,id,category):
 	ticket = Tickets.objects.get(pk = id);
@@ -120,6 +118,7 @@ def change_category(request,id,category):
 	return redirect('ticket-detail',id = id);
 
 
+@user_passes_test(checkIfCustomer,login_url='error')
 @login_required
 def create_ticket(request):
 	if request.method == 'POST':
@@ -161,9 +160,10 @@ def status_view(request,status):
 													  'dashboard':'active',
 														});
 #category
+@user_passes_test(checkIfAdminOrTech,login_url='error')
 @login_required
 def new_category(request):
-	if request.method == 'POST':
+	if request.method == 'POST' and request.user.is_superuser:
 		category_form = CategoryForm(data=request.POST);
 		if category_form.is_valid():
 			new_category = category_form.save(commit=False);
@@ -183,7 +183,7 @@ def new_category(request):
 														'categories':categories,
 														});
 
-
+@user_passes_test(checkIfAdmin,login_url='error')
 def delete_category(request,cat):
 	category = Category.objects.get(slug=cat);
 	category.delete();
@@ -191,7 +191,7 @@ def delete_category(request,cat):
 	return redirect('new-category');
 
 
-
+@user_passes_test(checkIfAdmin,login_url='error')
 def edit_category(request,cat):
 	category = Category.objects.get(slug=cat);
 	name = request.GET.get('name');
@@ -215,23 +215,16 @@ find = {
 #tickets
 def tickets(request):
 	categories = Category.objects.all();
-
 	status = request.GET.get('status'); #all
 	priority = request.GET.get('priority'); # none
 	category = request.GET.get('category'); # all,.......
 	sort = request.GET.get('sort');
 	order = request.GET.get('order');
-
-	
 	# SORTING # sort not by user id
 	if sort:
 		find['sort'] = sort;
-
-
 	if order:
 		find['order'] = order;
-
-
 	if find['order'] == 'ascending':
 		if find['sort'] == 'date':
 			tickets =Tickets.objects.all().order_by('created');
@@ -251,18 +244,11 @@ def tickets(request):
 		else:
 			tickets = Tickets.objects.all();
 
-
 	#SEARCHING
 	search_txt = request.GET.get('search');
 	#print("SEARCH_TXT",search_txt)
 	if search_txt:
 		tickets = tickets & Tickets.objects.filter(subject__icontains = search_txt);
-
-
-
-
-
-
 
 	# STATUS FILTER
 	if (status and status != 'all') or (find['status'] != 'all' and status != 'all'):
@@ -312,12 +298,8 @@ def tickets(request):
 		cat_none = True;
 
 
-
 	for k,f in find.items():
 		print(f);
-
-
-
 
 	page_obj,tickets = paginated(request,tickets,5);
 	return render(request,'tickets/tickets.html',{'nav_ticket':'active',

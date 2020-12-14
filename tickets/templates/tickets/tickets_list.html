@@ -23,11 +23,16 @@
 	</div>
 
 	<!-- for Contents -->
-	<a href="{% url 'ticket-detail' id=ticket.id %}"><h4 style="color: #7EA6E0">{{ticket.subject}} <span
+	<a href="{% url 'ticket-detail' id=ticket.id %}"><h4 style="color: #7EA6E0">{{ticket.subject}} 
+
+		{% if request.user.is_superuser or request.user.is_staff %}
+		<span
 			class = "badge badge-info rounded-pill"
 			style = "font-size: 0.5em;"
-		>{{ticket.category}}</span></h4>
-
+		>{{ticket.category}}
+		</span>
+		{% endif %}
+	</h4>
 	</a>
 
 

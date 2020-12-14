@@ -22,5 +22,7 @@ urlpatterns = [
     path('customer/',views.customer_view,name='customer-view'),
     path('customer/new',views.new_customer,name='new-customer'),
 
+    #error
+    path('system/error',views.error,name='error'),
     #path('dashboard/',views.dashboard,name='dashboard'),
 ]

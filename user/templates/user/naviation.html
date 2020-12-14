@@ -10,6 +10,7 @@
       <li class="nav-item {{dashboard}}">
         <a class="nav-link" href="{% url 'dashboard'%}"><i class="fas fa-chart-line"> DASHBOARD</i><span class="sr-only">(current)</span></a>
       </li>
+
       {% if user.is_superuser or user.is_staff %}
 
         {% if user.is_superuser %}
@@ -17,15 +18,17 @@
           <a class="nav-link" href="{% url 'tech-view' %}"><i class="fas fa-users-cog"> TECHNICIAN</i></a>
         </li>
 
-        <li class="nav-item {{category}}">
-          <a class="nav-link" href="{% url 'new-category' %}"><i class="fas fa-stream"> CATEGORY</i></a>
-        </li>
-        {% endif %}
-
         <li class="nav-item {{customer}}">
           <a class="nav-link" href="{% url 'customer-view' %}"><i class="fas fa-users"> CUSTOMERS</i></a>
         </li>
 
+        {% endif %}
+        
+        <li class="nav-item {{category}}">
+          <a class="nav-link" href="{% url 'new-category' %}"><i class="fas fa-stream"> CATEGORY</i></a>
+        </li>
+
+      
         <li class="nav-item {{nav_ticket}}"> 
           <a class="nav-link" href="{% url 'tickets' %}"><i class="fas fa-paste"> TICKETS</i></a>
           {% else %}

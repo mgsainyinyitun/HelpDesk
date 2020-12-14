@@ -6,6 +6,8 @@ Category Form
 {% block content %}
 
 
+
+{% if request.user.is_superuser %}
 <div class="mt-5" style="display: flex;flex-direction: column;align-items: center;">
 
 <form method="POST" novalidate class="w-25 p-3"
@@ -19,7 +21,7 @@ style="border: 1px solid rgba(0,0,0,0.5);
 	<input type="submit" value="ADD" class="btn btn-success">
 </form>
 </div>
-
+{% endif %}
 
 <div style="display: flex;flex-direction: column;align-items: center;margin-top: 2em;"
 >
@@ -32,8 +34,11 @@ style="border: 1px solid rgba(0,0,0,0.5);
 		<table class="table">
 			{% for category in categories %}
 			<tr>
-				
+			<td><span>{{category.name}}</span></td>
+			
+			{% if request.user.is_superuser %}	
 			{% include 'tickets/modal.html'%}
+			{% endif %}
 
 			</tr>
 			{% endfor %}
