@@ -1,7 +1,14 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   {% load static %}
-  <a class="navbar-brand" href="#"><i class="fab fa-hire-a-helper" style="font-size: 2em;"></i></a>
+
+  <a class="navbar-brand" href="{% url 'dashboard' %}">
+    <img src="{% static 'pictures/logo1_no_background.png' %}"
+    width="75" height="75" 
+    class="animate__animated animate__flipInX" 
+    >
+  </a>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -31,11 +38,16 @@
       
         <li class="nav-item {{nav_ticket}}"> 
           <a class="nav-link" href="{% url 'tickets' %}"><i class="fas fa-paste"> TICKETS</i></a>
-          {% else %}
-          <a class="nav-link" href="create">NEW TICKETS</a>
-          <a class="nav-link" href="#">ABOUT US</a>
-          {% endif %}
         </li>
+          {% else %}
+        <li class="nav-item {{new_ticket}}">
+          <a class="nav-link" href="create"><i class="fas fa-ticket-alt"> NEW TICKETS</i></a>
+        </li>
+        <li class="nav-item {{about_us}}">
+          <a class="nav-link" href="#"><i class="fas fa-sitemap"> ABOUT US</i></a>
+        </li>
+          {% endif %}
+        
     </ul>
   </div>
 

@@ -3,23 +3,39 @@
 Login Form
 {% endblock %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 
+<div class="row mt-5 appear">
+	<div class="col-6"></div>
+	<div class="col-6">
 
-<div class="mt-5" style="display: flex;flex-direction: column;align-items: center;">
-	<h1>Login Form</h1>
-	<form method="POST" novalidate class="w-25 p-3"
-	style="border: 1px solid rgba(0,0,0,0.5);
-		   border-radius: 5px;
-		   box-shadow: 4px 2px 10px 2px #888888;" 
-	>
-		{% csrf_token %}
-		{{ form|crispy }}
-		<input type="submit" value="Login" class="btn btn-success">
-		<p style="float: right;">Forgot passward click<a href="{% url 'password_reset'%}"> Here </a> .</p>
-	</form>
+		<div class="bg-info text-white p-3 w-75" style="border-radius: 15px;">
+			<div style="display: flex;justify-content: center;">
+				<img src="{% static 'pictures/logo_no_background.png'%}" alt="Logo" class="logo">
+				<img src="{% static 'pictures/logo1_no_background.png'%}" alt="Logo" class="logo">
+			</div>
+			
+		<div class="mt-5 mb-5 w-100 pl-5 pr-5" style="display: flex;flex-direction: column;align-items: center;">
+
+			<h3 class="text-white text-center" style="font-weight: bold;">
+				TICKETING SYSTEM HELPDESK APPLICATION
+			</h3>
+
+			<form method="POST" novalidate class="p-3 w-75 bg-white text-dark"
+			style="border: 1px solid rgba(0,0,0,0.5);
+				   border-radius: 5px;
+				   box-shadow: 4px 2px 10px 2px #888888;" 
+			>
+				<h1>Login Form</h1>
+				{% csrf_token %}
+				{{ form|crispy }}
+				<input type="submit" value="Login" class="btn btn-success">
+				<p style="float: right;">Forgot passward click<a href="{% url 'password_reset'%}"> Here </a> .</p>
+			</form>
+		</div>
+		</div>
+	</div>
 </div>
-
-
 
 {% endblock %}

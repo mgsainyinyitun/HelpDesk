@@ -70,6 +70,11 @@ def ticket_detail(request,id):
 	if request.method == 'POST':
 		#update data to database
 		comment_form = CommentForm(data=request.POST);
+		ticket_form = TicketForm(instance = ticket,data=request.POST,files=request.FILES);
+
+		print("Comment:::",comment_form);
+
+		
 		if comment_form.is_valid():
 			new_comment = comment_form.save(commit = False);
 			new_comment.ticket = ticket;
@@ -77,8 +82,12 @@ def ticket_detail(request,id):
 			new_comment.save();
 			comment_form = CommentForm();
 
+		if ticket_form.is_valid():
+			new_ticket = ticket_form.save();
+
 	else:
 		comment_form = CommentForm();
+		ticket_form = TicketForm(instance=ticket);
 
 	return render(request,'tickets/ticket_detail.html',{'ticket':ticket,
 														'comment_form':comment_form,
@@ -86,7 +95,8 @@ def ticket_detail(request,id):
 														'pri_design':pri_design,
 														'priority':priority,
 														'nav_ticket':'active',
-														'categories':categories
+														'categories':categories,
+														'ticket_form':ticket_form
 														});
 
 
@@ -132,7 +142,7 @@ def create_ticket(request):
 	else:
 		new_form = TicketForm();
 	return render(request,'tickets/create_ticket.html' ,{'new_form':new_form,
-														 'dashboard':'active',
+														 'new_ticket':'active',
 															});
 
 

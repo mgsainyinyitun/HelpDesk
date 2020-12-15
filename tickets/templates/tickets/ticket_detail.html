@@ -28,9 +28,12 @@
 	<div style="
 		width: 80%;
 	">
+
+		<div>
 		<h3 style="
 			color: #7EA6E0;
 			font-size: 2.5em;
+			display: inline;
 		">{{ticket.subject}}
 
 		{% if request.user.is_superuser or request.user.is_staff %}
@@ -39,8 +42,15 @@
 		>{{ticket.category}}
 		</span>
 		{% endif %}
-
 		</h3>
+		{% if not request.user.is_superuser and not request.user.is_staff %}
+			{% include 'tickets/edit_ticket.html' %}
+		{% endif %}
+
+		</div>
+
+
+
 		<p style="text-align: justify;font-size: 1.3em;
 		color: #470070;
 		">{{ticket.description}}</p>
