@@ -1,5 +1,6 @@
 <div class="mt-3">
 {% for ticket in tickets %}
+	<div class="ticket p-2 animate__animated animate__fadeIn">
 	<!-- For User Profile -->
 	<div style="
 		display: inline-flex;	
@@ -52,6 +53,9 @@
 		
 	{% endif %}
 	<hr>
+</div>
 
 {% endfor %}
+
+{% include 'tickets/paginator.html' %}
 </div>

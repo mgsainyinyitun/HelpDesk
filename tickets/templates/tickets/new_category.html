@@ -8,8 +8,8 @@ Category Form
 
 
 {% if request.user.is_superuser %}
-<div class="mt-5" style="display: flex;flex-direction: column;align-items: center;">
-
+<div class="mt-5 animate__animated animate__fadeInLeft animate__faster" style="display: flex;flex-direction: column;align-items: center;">
+ 
 <form method="POST" novalidate class="w-25 p-3"
 style="border: 1px solid rgba(0,0,0,0.5);
 	   border-radius: 5px;
@@ -24,6 +24,7 @@ style="border: 1px solid rgba(0,0,0,0.5);
 {% endif %}
 
 <div style="display: flex;flex-direction: column;align-items: center;margin-top: 2em;"
+	class="animate__animated animate__fadeInLeft animate__faster"
 >
 	<div style="border: 1px solid rgba(0,0,0,0.5);
 	   border-radius: 5px;

@@ -8,6 +8,22 @@ from django.core.paginator import Paginator,PageNotAnInteger;
 from django.contrib import messages;
 from django.utils.text import slugify;
 from user.auth import checkIfAdmin,checkIfTech,checkIfCustomer,checkIfAdminOrTech
+from django.http import HttpResponse
+from .utils import render_to_pdf;
+
+def generatePDF(request):
+	
+	#tickets = Tickets.objects.all();
+	data = {
+             'today': "10.20.2020", 
+             'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+        };
+
+	pdf = render_to_pdf('tickets/invoice.html',data)
+	return HttpResponse(pdf,content_type='application/pdf')
+
 
 @login_required
 def dashboard(request):

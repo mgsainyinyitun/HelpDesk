@@ -1,25 +1,36 @@
+
 {% extends 'user/base.html' %}
 {% block title %}
 Login Form
 {% endblock %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 
 
-<div class="mt-5" style="display: flex;flex-direction: column;align-items: center;">
-	<h1>Login Form</h1>
-	<form method="POST" novalidate class="w-25 p-3"
+	<div class="mt-5 p-5 bg-white w-50 appear" style="display: flex;flex-direction: column;align-items: center;float: right;border-radius: 20px;">
+	<div style="display: flex;flex-direction: row;" class="mb-3">
+			<div class="mr-1"><img src="{%static 'pictures/logo1.jpg' %}" class="logo"/></div>
+			<div class="ml-1"><img src="{%static 'pictures/logo2.jpg' %}" class="logo"/></div>
+	</div>
+
+	<h1 class="logo-head"> MOPFI </h1>
+	<h3 class="bg-white logo-head">MINISTRY OF PLANNING</h3>
+	<h3 class="bg-white logo-head">FINANCE AND INDUSTRY</h3>
+
+	<form method="POST" novalidate class="w-75 p-3 mb-5"
 	style="border: 1px solid rgba(0,0,0,0.5);
 		   border-radius: 5px;
 		   box-shadow: 4px 2px 10px 2px #888888;" 
 	>
+	<h5 class="text-primary">Sign In into Ministery of Planning, Finance and Industry</h5>
 		{% csrf_token %}
 		{{ form|crispy }}
-		<input type="submit" value="Login" class="btn btn-success">
+		<button type="submit" value="Login" class="btn btn-success"><i class="fas fa-sign-in-alt mr-1"></i>Login</button>
 		<p style="float: right;">Forgot passward click<a href="{% url 'password_reset'%}"> Here </a> .</p>
 	</form>
-</div>
 
+	</div>
 
 
 {% endblock %}

@@ -6,13 +6,14 @@ Register Form
 
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="mt-5" style="display: flex;flex-direction: column;align-items: center;">
-<h1>NEW TECHNICIAN</h1>
+<div class="mt-5 appear" style="display: flex;flex-direction: column;align-items: center;">
+
 <form method="POST" novalidate enctype="multipart/form-data" class="w-50 p-5"
 style="border: 1px solid rgba(0,0,0,0.5);
 		   border-radius: 5px;
 		   box-shadow: 4px 2px 10px 2px #888888;"
 >
+	<h1>NEW TECHNICIAN</h1>
 	{% csrf_token %}
 	{{ user_form|crispy }}
 	{{ user_profile|crispy}}

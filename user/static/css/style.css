@@ -1,0 +1,70 @@
+html,body{
+	margin: 0;
+}
+.bg-img{
+	position: absolute;
+	background-image: url('cover.jpg');
+	height: 100%;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	left: 0px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+form{
+	background-color: white;
+}
+.logo{
+	width: 150px;
+	height: 150px;
+}
+.form-bg{
+	width: 20vh;
+	height: 20vh;
+	position: absolute;
+	background-color: white;
+}
+.logo-head{
+	font-weight: bold;
+	color: rebeccapurple;
+}
+.scaleup{
+	transition: transform 0.5s;
+}
+.scaleup:hover{
+	transform: scale(1.1);
+}
+.ticket{
+	transition: transform 0.5s;
+}
+
+.ticket:hover{
+	transform: scale(1.02);
+	box-shadow: 1px 1px 3px 1px #888888;
+	border-radius: 5px;
+	background-color: rgba(grey, 0.9);
+}
+.navbar-brand{
+	transition: transform 0.5s;
+}
+.navbar-brand:hover{
+	transform: scale(1.1);
+}
+
+.appear{
+	animation-name: appear-transform;
+	animation-duration: 0.5s;
+}
+
+
+@keyframes appear-transform{
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}

@@ -1,0 +1,33 @@
+{% load static %}
+<footer class="bg-dark text-white p-3">
+    <div class="row text-center">
+        <div class="col-4 mt-4">
+            <div class="row" style="display: flex;align-items: center;justify-content: center;">
+                <a class="text-primary mr-4">
+                    <i class="fab fa-facebook" style="font-size: 2em;"></i>
+                </a>
+                <a class="text-primary mr-4">
+                    <i class="fab fa-twitter-square" style="font-size: 2em;"></i>
+                </a>
+                <a class="text-primary mr-4">
+                    <i class="fab fa-linkedin" style="font-size: 2em;"></i>
+                </a>
+                <a class="text-primary mr-4">
+                    <i class="fab fa-google-plus" style="font-size: 2em;"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-4 mt-4">
+            
+            Copyright <span>&#169;</span> 2020 MOPFI
+        </div>
+        <div class="col-4">
+            <a class="animate__animated animate__flipInX" href="{% url 'dashboard' %}" style="float: right;">
+                <img src="{% static 'pictures/logo1.jpg' %}" alt="Logo" width="75" height="75" class="border rounded-circle">
+            </a>
+        </div>
+    </div>
+    
+</footer>
+<div style="height: 30px;background-color: black;">
+</div>

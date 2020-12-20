@@ -1,10 +1,21 @@
-<div>
-	 <a href="/status/open" class="btn btn-danger rounded-pill">{{open}} Open Tickets</a>
-	 <a href="/status/pending" class="btn btn-info rounded-pill">{{pending}} Pending Tickets</a>
-	 <a href="/status/closed" class="btn btn-success rounded-pill">{{closed}} Closed Tickets</a>
-	 <a href="/status/recent" class="btn btn-dark rounded-pill">Recent</a>
+<div class="row mr-2">
+	<div class="col-6">
+		{% include 'tickets/dashboard_side.html' %}
+	</div>
+	<div class="col-6">
+		<div class="card">
+		<div class="card-header bg-dark text-white mb-3">
+			<h3>Recent Tickets User Created</h3>
+		</div>
+		<div class="card-body p-3">
+			<a href="/status/open" class="btn btn-danger rounded-pill">{{open}} Open Tickets <i class="fas fa-arrow-alt-circle-right ml-1"></i></a>
+			<a href="/status/pending" class="btn btn-info rounded-pill">{{pending}} Pending Tickets<i class="fas fa-arrow-alt-circle-right ml-1"></i></a>
+			<a href="/status/closed" class="btn btn-success rounded-pill">{{closed}} Closed Tickets<i class="fas fa-arrow-alt-circle-right ml-1"></i></a>
+			<a href="/status/recent" class="btn btn-dark rounded-pill">Recent</a>
+		</div>
+		{% include 'tickets/tickets_list.html' %}
+	</div>
+	</div>
 </div>
 
 
-{% include 'tickets/tickets_list.html' %}
-{% include 'tickets/paginator.html' %}

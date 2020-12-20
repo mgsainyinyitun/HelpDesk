@@ -15,4 +15,6 @@ urlpatterns = [
     path('category/edit/<slug:cat>',views.edit_category,name='edit-category'),
     #tickets
     path('tickets',views.tickets,name='tickets'),
+    # pdf 
+    path('tickets/pdf',views.generatePDF,name='generate'),
 ]
