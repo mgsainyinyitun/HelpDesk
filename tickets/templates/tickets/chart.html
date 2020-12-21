@@ -1,0 +1,74 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+ <script id="status-data" type="application/json">
+  { 
+    "open": {{open}},
+    "closed": {{closed}},
+    "pending": {{pending}}
+  }
+  </script>
+
+  <script id="priority-data" type="application/json">
+  { 
+    "critical": {{critical}},
+    "urgent": {{urgent}},
+    "normal": {{normal}},
+    "not_important" : {{not_important}}
+  }
+  </script>
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      const priority = JSON.parse(document.getElementById('priority-data').textContent);
+      console.log("DATA:",priority);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Priority of Tickets'],
+          ['Critical',priority.critical],
+          ['Urgent',priority.urgent],
+          ['Normal',priority.normal],
+          ['Not Important',priority.not_important],
+        ]);
+
+        var options = {
+          title: 'Priority of Tickets'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('priority-chart'));
+
+        chart.draw(data, options);
+      }
+
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      const value = JSON.parse(document.getElementById('status-data').textContent);
+
+      //console.log("DATA:",value);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Status of Tickets'],
+          ['Open',value.open],
+          ['Closed',value.closed],
+          ['Pending',value.pending],
+        ]);
+
+        var options = {
+          title: 'Status of Tickets',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('status-chart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+

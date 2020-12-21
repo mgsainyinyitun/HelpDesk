@@ -8,10 +8,12 @@ from django.core.paginator import Paginator,PageNotAnInteger;
 from django.contrib import messages;
 from django.utils.text import slugify;
 from user.auth import checkIfAdmin,checkIfTech,checkIfCustomer,checkIfAdminOrTech
+from .Calculation import num_of_priority,num_of_category;
 
 @login_required
 def dashboard(request):
 	open=0;closed =0;pending = 0;
+	categories = Category.objects.all();
 	if request.user.is_superuser or request.user.is_staff:
 		tickets = Tickets.objects.all();
 	else:
@@ -26,10 +28,11 @@ def dashboard(request):
 		elif ticket.status == 'Pending':
 			pending = pending +1;
 
-	print('open:::',open);
-	print('closed:::',closed);
-	print('pending:::',pending);
 
+	critical,urgent,normal,not_important = num_of_priority();
+
+	cat_number = num_of_category();
+	print("DATA:",cat_number);
 	#paginator function
 	page_obj,tickets = paginated(request,tickets,3);	
 
@@ -40,6 +43,12 @@ def dashboard(request):
 												 'pending':pending,
 												 'page_obj':page_obj,
 												 'dashboard':'active',
+												 'critical':critical,
+												 'urgent':urgent,
+												 'normal':normal,
+												 'not_important':not_important,
+												 'categories':categories,
+												 'cat_number':cat_number,
 												});
 
 

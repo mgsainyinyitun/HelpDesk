@@ -34,7 +34,7 @@
 
 
 
-    <div class="container-fluid h-100">
+    <div class="container-fluid" style="min-height: 100vh;">
       <div class="row bg-white">
         <div class="col">
             {% block content %}
@@ -71,6 +71,8 @@
     }
 
     </script>
+
+    {% include 'tickets/chart.html' %}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
