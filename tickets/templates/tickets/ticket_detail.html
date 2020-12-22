@@ -1,6 +1,8 @@
 {% extends 'user/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center">
+<div class="card p-3 w-75 mb-1 mt-1" style="border-radius: 20px;">
 <div>
 	<!-- User Profile -->
 	<div style="
@@ -25,9 +27,7 @@
 	</div>
 
 	<!-- for content -->
-	<div style="
-		width: 80%;
-	">
+	<div>
 
 		<div>
 		<h3 style="
@@ -131,12 +131,13 @@
 
 	</div>
 	</div>
-
+</div>
+</div>
 
 	
 
 	<!-- View Comments -->
-
+<div class="card p-3 w-75 mb-1" style="border-radius: 20px;">
 	<div>
 
 		{%for comment in comments %}
@@ -167,9 +168,12 @@
 
 		{% endfor %}
 	</div>
+</div>
+
 
 
 	<!-- for Comment Form -->
+<div class="card p-3 w-75 mb-1" style="border-radius: 20px;">
 	<div class="row">
 
 		<div class="col">
@@ -182,14 +186,6 @@
 		<div class="col"></div>
 		<div class="col"></div>
 	</div>
-		
-		
-
-
-
-
-
-
 </div>
-
+</div>	
 {% endblock %}

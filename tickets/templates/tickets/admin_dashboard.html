@@ -2,7 +2,38 @@
 
 <div class="row">
 
-	<div class="col"> 
+	<div class="col p-0"> 
+
+
+		<div class="card-group text-white">
+			<div class="card bg-primary p-3 m-1">
+				<p> Total number of Tickets</p>
+				<h1><i class="fas fa-ticket-alt mr-3"></i>{{total_tickets}}</h1>
+			</div>
+			<div class="card bg-secondary p-3 m-1">
+				<p> Total number of Technician</p>
+				<div class="d-flex flex-row">
+				<div class="mr-3">
+					<h1><i class="fas fa-users-cog mr-3"></i>{{tot_tech}}</h1>
+				</div>
+				<div>
+					<p class="text-danger">Admin : {{admin}}</p>
+					<p class="text-dark">Technician : {{technician}} </p>
+				</div>
+				</div>
+			</div>
+			<div class="card bg-info p-3 m-1">
+				<p> Total number of Customer</p>
+				<h1><i class="fas fa-users mr-3"></i>{{customer}}</h1>
+			</div>
+		</div>
+
+
+
+
+
+
+
 		<div class="card-group m-1">
 			<div class="card mr-1">
 				<h3 class="card-title bg-primary text-white p-2"> Priority of Tickets</h3>
@@ -23,7 +54,7 @@
 		</div>
 	</div>
 
-	<div class="col"> 
+	<div class="col p-0"> 
 		<div class="p-3 my-card card m-1">
 		<div>
 			 <a href="/status/open" class="btn btn-danger rounded-pill">{{open}} Open Tickets</a>

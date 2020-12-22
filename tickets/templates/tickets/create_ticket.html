@@ -2,10 +2,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="d-flex justify-content-center">
+	<div class="card m-2 p-3 w-50">
 <form method="POST" novalidate="true" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{new_form|crispy}}
 	<input type="submit" name="submit" value="Create" class="btn btn-success">
 </form>
+</div>
+</div>
 
 {% endblock %}

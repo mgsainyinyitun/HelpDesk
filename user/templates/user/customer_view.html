@@ -1,5 +1,7 @@
 {% extends 'user/base.html' %}
 {% block content %}
+<div class="d-flex justify-content-center">
+<div class="card p-3 m-2 w-75">
 <div class="mb-3">
 <div class="btn btn-info rounded-pill">{{users.count}} Customer</div>
 
@@ -14,4 +16,6 @@
 
 {% include 'user/customer_list.html' %}
 {% include 'tickets/paginator.html' %}
+</div>
+</div>
 {% endblock %}

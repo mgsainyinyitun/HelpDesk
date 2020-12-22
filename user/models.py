@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from tickets.models import Category
 # Create your models here.
 # one to one relationship
 #User >> Profile(pic,bir,ph,add)
@@ -10,6 +11,7 @@ class Profile(models.Model):#User
 	birthday = models.DateField(null=True,blank=True);
 	phone = models.CharField(max_length=20,null=True,blank=True);
 	address = models.TextField(null=True,blank=True);
+	category = models.ForeignKey(Category,on_delete=models.CASCADE,blank=True,null=True);
 	GENDER = (
 				('other','Other'), # (Key,value)
 				('male','Male'),

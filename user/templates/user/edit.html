@@ -6,11 +6,23 @@ Edit your Profile
 
 {% load crispy_forms_tags %}
 {% block content %}
-<h1>Edit Your Account's Profile</h1>
+<div class="d-flex justify-content-center">
+	<div class="card p-3 m-2 w-50">
+		<h1 class="text-primary">Edit Your Account's Profile</h1>
+		<div class="d-flex flex-column align-items-center">
+		<img src="{{request.user.profile.photo.url}}" alt="user profile"
+			width="150"
+			height="150" 
+			class="border rounded-circle m-4" 
+		>
+		</div>
 <form method="POST" novalidate enctype="multipart/form-data">
+	
 	{% csrf_token %}
 	{{ profile_form|crispy}}
 	{{ user_form|crispy }}
 	<input type="submit" value="Change" class="btn btn-success">
 </form>
+</div>
+</div>
 {% endblock %}

@@ -1,25 +1,41 @@
-<div class="mb-5" 
-style="display: flex;justify-content: center;" 
->
-	{% if page_obj.has_previous %}
-	<a class="btn btn-info rounded-pill mr-1"
-	href="?page={{ page_obj.previous_page_number }}" 
-	> &lt;&lt;Previous</a>
-	<!-- url/?page=2  GET/POST -->
-	{% else %}
-	<div class="btn btn-light rounded-pill">&lt;&lt;Previous</div>
-	{% endif %}
+<nav aria-label="...">
+  <ul class="pagination">
+
+  	{% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    {% endif %}
+
+    {% for pg in paginator.page_range %}
+
+    {% if pg == page %}
+    <li class="page-item active">
+    	<a class="page-link" href="?page={{pg}}">{{pg}}</a>
+    </li>
+    {% else %}
+    <li class="page-item">
+    	<a class="page-link" href="?page={{pg}}">{{pg}}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
 
 
-	<div class="btn btn-info mr-1" >
-		Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
-	</div>
 
-	{% if page_obj.has_next %}
-	<a class="btn btn-info rounded-pill"
-	href="?page={{ page_obj.next_page_number }}" 
-	>Next &gt;&gt;</a>
-	{% else %}
-	<div class="btn btn-light rounded-pill" style="width: 10%;">Next &gt;&gt;</div>
-	{% endif %}
-</div>
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">Next</a>
+    </li>
+    {% endif %}
+
+
+  </ul>
+</nav>

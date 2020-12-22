@@ -8,18 +8,25 @@ from django.core.paginator import Paginator,PageNotAnInteger;
 from django.contrib import messages;
 from django.utils.text import slugify;
 from user.auth import checkIfAdmin,checkIfTech,checkIfCustomer,checkIfAdminOrTech
-from .Calculation import num_of_priority,num_of_category;
+from .Calculation import num_of_priority,num_of_category,num_of_general;
 
 @login_required
 def dashboard(request):
 	open=0;closed =0;pending = 0;
 	categories = Category.objects.all();
 	if request.user.is_superuser or request.user.is_staff:
-		tickets = Tickets.objects.all();
+		if request.user.is_staff and not request.user.is_superuser:
+			if request.user.profile.category:
+				tickets = Tickets.objects.filter(category = request.user.profile.category);
+			else:
+				tickets =  Tickets.objects.all();
+		else:
+			tickets = Tickets.objects.all();
 	else:
 		tickets = Tickets.objects.filter(user=request.user);
 
 
+	
 	for ticket in tickets:
 		if ticket.status == 'Open':
 			open = open + 1;
@@ -32,11 +39,13 @@ def dashboard(request):
 	critical,urgent,normal,not_important = num_of_priority();
 
 	cat_number = num_of_category();
-	print("DATA:",cat_number);
-	#paginator function
-	page_obj,tickets = paginated(request,tickets,3);	
 
-	#print('User',user);
+	#paginator function
+	paginator,page_obj,tickets,page = paginated(request,tickets,3);
+
+	total_tickets,admin,technician,customer  = num_of_general();	
+
+
 	return render(request,'user/dashboard.html',{'tickets':tickets,
 												 'open':open,
 												 'closed':closed,
@@ -49,6 +58,13 @@ def dashboard(request):
 												 'not_important':not_important,
 												 'categories':categories,
 												 'cat_number':cat_number,
+												 'total_tickets':total_tickets,
+												 'admin':admin,
+												 'technician':technician,
+												 'customer':customer,
+												 'tot_tech':admin+technician,
+												 'paginator':paginator,
+												 'page':int(page),
 												});
 
 
@@ -170,13 +186,15 @@ def status_view(request,status):
 	for _ in tickets:
 		number = number+1; #tickets.count
 
-	page_obj,tickets = paginated(request,tickets,3);
+	paginator,page_obj,tickets,page = paginated(request,tickets,3);
 
 	return render(request,'tickets/status_view.html',{'tickets':tickets,
 													  'status':status,
 													  'number':number,
 													  'page_obj':page_obj,
 													  'dashboard':'active',
+													  'paginator':paginator,
+													  'page':int(page),
 														});
 #category
 @user_passes_test(checkIfAdminOrTech,login_url='error')
@@ -232,6 +250,7 @@ find = {
 }
 
 #tickets
+@login_required
 def tickets(request):
 	categories = Category.objects.all();
 	status = request.GET.get('status'); #all
@@ -320,13 +339,16 @@ def tickets(request):
 	for k,f in find.items():
 		print(f);
 
-	page_obj,tickets = paginated(request,tickets,5);
+	paginator,page_obj,tickets,page = paginated(request,tickets,5);
+
 	return render(request,'tickets/tickets.html',{'nav_ticket':'active',
 												  'categories':categories,
 												  'tickets':tickets,
 												  'find':find,
 												  'cat_none':cat_none,
-												  'page_obj':page_obj
+												  'page_obj':page_obj,
+												  'paginator':paginator,
+												  'page':int(page),
 													});
 
 def paginated(request,objects,number):
@@ -336,7 +358,8 @@ def paginated(request,objects,number):
 		page_obj =paginator.get_page(page);
 		objects = paginator.page(page);
 	except PageNotAnInteger:
+		page = 1;
 		page_obj = paginator.get_page(1);
 		objects = paginator.page(1);
 
-	return page_obj,objects;
+	return paginator,page_obj,objects,page;

@@ -69,13 +69,15 @@ def tech_view(request):
 			techs = techs+1;
 
 	#pagination
-	page_obj,users = paginated(request,users,5);
+	paginator,page_obj,users,page = paginated(request,users,3);
 
 	return render(request,'user/tech_view.html',{'tech':'active',
 												 'users':users,
 												 'admin':admin,
 												 'techs':techs,
 												 'page_obj':page_obj,
+												 'paginator':paginator,
+												 'page':int(page)
 													});
 
 @user_passes_test(checkIfAdmin,login_url='error')

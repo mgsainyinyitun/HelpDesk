@@ -1,7 +1,10 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
+<div class="d-flex justify-content-center">
+	<div class="card m-2 p-3 w-75">
 
+<div>
 {% if status == 'open' %}
 <div class="btn btn-danger rounded-pill">{{number}} Open Tickets</div>
 {% elif status == 'pending' %}
@@ -11,8 +14,9 @@
 {% endif %}
 
 <a href="/status/recent" class="btn btn-dark rounded-pill">Recent</a>
-
+</div>
 {% include 'tickets/tickets_list.html' %}
 {% include 'tickets/paginator.html' %}
-
+</div>
+</div>
 {% endblock %}

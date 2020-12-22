@@ -6,19 +6,15 @@ Customer Register Form
 
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="mt-5" style="display: flex;flex-direction: column;align-items: center;">
-<h1>Register New Customer</h1>
-<form method="POST" novalidate enctype="multipart/form-data" class="w-50 p-5"
-style="border: 1px solid rgba(0,0,0,0.5);
-		   border-radius: 5px;
-		   box-shadow: 4px 2px 10px 2px #888888;"
-
->
+<div class="d-flex justify-content-center">
+<div class="card p-3 m-2 w-50">
+<form method="POST" novalidate enctype="multipart/form-data">
 	{% csrf_token %}
+	<h1 class="text-primary">Register New Customer</h1>
 	{{ customer_form|crispy }}
 	{{ profile_form|crispy}}
-	
 	<input type="submit" value="Register" class="btn btn-success">
 </form>
+</div>
 </div>
 {% endblock %}
