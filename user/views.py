@@ -6,8 +6,8 @@ from django.contrib.auth.models import User;
 from tickets.views import paginated;
 from .auth import checkIfAdmin,checkIfTech,checkIfCustomer
 
-@user_passes_test(checkIfAdmin,login_url='error')
-@login_required
+#@user_passes_test(checkIfAdmin,login_url='error')
+#@login_required
 def register(request):
 	if request.method == 'POST':
 		user_form = UserRegistrationForm(data=request.POST);
