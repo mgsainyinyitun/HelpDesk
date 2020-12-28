@@ -9,6 +9,29 @@ from django.contrib import messages;
 from django.utils.text import slugify;
 from user.auth import checkIfAdmin,checkIfTech,checkIfCustomer,checkIfAdminOrTech
 from .Calculation import num_of_priority,num_of_category,num_of_general;
+from .pdf import render_to_pdf;
+from django.http import HttpResponse
+
+def renderPdf(request):
+	tickets,cat_none = ticket_mgmt(request);
+	name = [{'name':ticket.subject}for ticket in tickets ]
+	print("Tickets:::",name);
+	data = [];
+	#print("Types of :::",type(tickets))
+	#subject = {"name":name}
+	for ticket in tickets:
+		obj = {
+			"user":ticket.user.username,
+			"title":ticket.subject,
+			"status":ticket.status,
+			"priority":ticket.priority,
+			"date":ticket.created,
+		}
+		data.append(obj);
+
+	tickets = {"tickets":data}
+	pdf = render_to_pdf('tickets/pdf.html',tickets);
+	return HttpResponse(pdf,content_type="application/pdf");
 
 @login_required
 def dashboard(request):
@@ -249,16 +272,13 @@ find = {
 	'order':'descending',
 }
 
-#tickets
-@login_required
-def tickets(request):
-	categories = Category.objects.all();
+def ticket_mgmt(request):
 	status = request.GET.get('status'); #all
 	priority = request.GET.get('priority'); # none
 	category = request.GET.get('category'); # all,.......
 	sort = request.GET.get('sort');
 	order = request.GET.get('order');
-	# SORTING # sort not by user id
+	
 	if sort:
 		find['sort'] = sort;
 	if order:
@@ -334,7 +354,18 @@ def tickets(request):
 		for cat in categories:
 			tickets = tickets & Tickets.objects.exclude(category = cat);
 		cat_none = True;
+	return tickets,cat_none;
 
+
+
+#tickets
+@login_required
+def tickets(request):
+	categories = Category.objects.all();
+
+	
+	
+	tickets,cat_none = ticket_mgmt(request);
 
 	for k,f in find.items():
 		print(f);

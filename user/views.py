@@ -87,8 +87,13 @@ def role_view(request,role):
 		users = User.objects.filter(is_superuser = True);
 	else:
 		users = User.objects.filter(is_staff = True,is_superuser=False);
+
+	paginator,page_obj,users,page = paginated(request,users,5);
 	return render(request,'user/role_view.html',{'users':users,
 												 'tech':'active',
+												 'paginator':paginator,
+												 'page_obj':page_obj,
+												 'page':int(page),
 												});
 
 
@@ -128,8 +133,12 @@ def user_detail_view(request,id):
 @login_required
 def customer_view(request):
 	users = User.objects.filter(is_superuser=False,is_staff=False);
+	paginator,page_obj,users,page = paginated(request,users,5);
 	return render(request,'user/customer_view.html',{ 'customer':'active',
-													  'users':users
+													  'users':users,
+													  'paginator':paginator,
+													  'page_obj':page_obj,
+													  'page':int(page),
 														});
 
 @user_passes_test(checkIfAdmin,login_url='error')

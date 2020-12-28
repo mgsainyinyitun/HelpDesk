@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <style type="text/css">
+            table {
+                border: 1px solid blue;
+                padding: 3px;
+                font-size: 16px;
+            }
+            .header {
+                color: white;
+                font-weight: bold;
+                background-color: slateblue;
+            }
+            .user {
+                font-weight: bold;
+                color: blue;
+            }
+            .date {
+                font-size: 8px;
+                color: steelblue;
+            }
+        
+        </style>
+    </head>
+
+    <body>
+       
+        <div>
+            <h1 style="color: blue;text-align: center;font-size: 3em;">Tickets List</h1>
+            <table>
+                <tr>
+                    <td class="header">USER</th>
+                    <td colspan="2" class="header">TITLE</th>
+                    <td class="header">STATUS</th>
+                    <td class="header">PRIORITY</th>
+                    <td class="header">DATE</th>
+                </tr>
+
+                {% for ticket in tickets %}
+                    <tr>
+                        <td class="user">{{ticket.user}}</td>
+                        <td colspan="2">{{ticket.title}}</td>
+                        <td>{{ticket.status}}</td>
+                        <td>{{ticket.priority}}</td>
+                        <td class="date">{{ticket.date}}</td>
+                    </tr>
+                {% endfor %}
+
+
+
+            </table>
+        </div>
+    </body>
+</html>

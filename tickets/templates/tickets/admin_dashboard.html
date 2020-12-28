@@ -28,12 +28,6 @@
 			</div>
 		</div>
 
-
-
-
-
-
-
 		<div class="card-group m-1">
 			<div class="card mr-1">
 				<h3 class="card-title bg-primary text-white p-2"> Priority of Tickets</h3>
@@ -56,16 +50,14 @@
 
 	<div class="col p-0"> 
 		<div class="p-3 my-card card m-1">
-		<div>
-			 <a href="/status/open" class="btn btn-danger rounded-pill">{{open}} Open Tickets</a>
-			 <a href="/status/pending" class="btn btn-info rounded-pill">{{pending}} Pending Tickets</a>
-			 <a href="/status/closed" class="btn btn-success rounded-pill">{{closed}} Closed Tickets</a>
-			 <a href="/status/recent" class="btn btn-dark rounded-pill">Recent</a>
+			<div>
+				<a href="/status/open" class="btn btn-danger rounded-pill">{{open}} Open Tickets</a>
+				<a href="/status/pending" class="btn btn-info rounded-pill">{{pending}} Pending Tickets</a>
+				<a href="/status/closed" class="btn btn-success rounded-pill">{{closed}} Closed Tickets</a>
+				<a href="/status/recent" class="btn btn-dark rounded-pill">Recent</a>
+			</div>
+		{% include 'tickets/tickets_list.html' %}
+		{% include 'tickets/paginator.html' %}
 		</div>
-
-
-	{% include 'tickets/tickets_list.html' %}
-	{% include 'tickets/paginator.html' %}
-	</div>
 	</div>
 </div>
