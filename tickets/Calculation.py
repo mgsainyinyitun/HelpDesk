@@ -45,6 +45,8 @@ def num_of_category():
 	categories = Category.objects.all();
 
 	total_ticket = tickets.count();
+	if total_ticket == 0:
+		total_ticket = 1;
 	has_category = 0;
 	data = {};
 
