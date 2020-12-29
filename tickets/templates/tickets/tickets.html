@@ -1,12 +1,10 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
-<div class="d-flex justify-content-center">
-	<div class="card p-3 m-2 w-75">
+
 	{% include 'tickets/ticket_mgmt.html' %}
 	{% include 'tickets/tickets_view.html' %}
-	{% include 'tickets/paginator.html' %}
-	</div>
-</div>
+	
+
 
 {% endblock %}

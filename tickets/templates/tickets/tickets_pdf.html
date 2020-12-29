@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tickets List</title>
+	<style type="text/css">
+
+		table {
+			border:1px solid blue;
+			font-size: 12px;
+		}
+		td{
+			padding: 3px;
+		}
+		thead {
+			font-weight: bold;
+			font-size: 14px;
+		}
+		.header {
+			background-color: gray;
+		}
+		.date {
+			font-size: 8px;
+			color: #022e33;
+		}
+
+
+
+	</style>
+
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<td class="header">USER</td>
+				<td class="header" colspan="2">TITLE</td>
+				<td class="header" width="18%">DEPARTMENT</td>
+				<td class="header">STATUS</td>
+				<td class="header">PRIORITY</td>
+				<td class="header" width="15%">CATEGORY</td>
+				<td class="header"> DATE</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for ticket in tickets %}
+			 <tr>
+			 	<td>{{ticket.user}}</td>
+			 	<td colspan="2">{{ticket.subject}}</td>
+			 	<td>{{ticket.department}}</td>
+			 	<td>{{ticket.status}}</td>
+			 	<td>{{ticket.priority}}</td>
+			 	<td>{{ticket.category}}</td>
+			 	<td class="date">{{ticket.date}}</td>
+			 </tr>
+
+			{% endfor %}
+
+		</tbody>
+
+	</table>
+</body>
+</html>

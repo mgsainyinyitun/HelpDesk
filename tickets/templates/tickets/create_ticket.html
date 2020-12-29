@@ -6,7 +6,21 @@
 	<div class="card m-2 p-3 w-50">
 <form method="POST" novalidate="true" enctype="multipart/form-data">
 	{% csrf_token %}
-	{{new_form|crispy}}
+	<label for="name"> Department</label><span class="text-danger">*</span>
+	{{new_form.name|as_crispy_field}}
+
+	<label for="subject"> Subject </label><span class="text-danger">*</span>
+	{{new_form.subject|as_crispy_field}}
+
+	<label for="description"> Description  </label><span class="text-danger">*</span>
+	{{new_form.description|as_crispy_field}}
+
+	<label for="priority"> Priority </label>
+	{{new_form.priority|as_crispy_field}}
+
+	<label for="attachment"> Attachment </label>
+	{{new_form.attachment|as_crispy_field}}
+
 	<input type="submit" name="submit" value="Create" class="btn btn-success">
 </form>
 </div>

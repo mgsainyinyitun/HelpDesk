@@ -27,9 +27,15 @@ class CustomerRegistrationForm(forms.ModelForm):
 			raise forms.ValidationError("Your password does not equal");
 		return cd['password2'];
 
-class ProfileForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm): # customer / tech
 	class Meta:
 		model = Profile
+		fields = ('photo','birthday','category','gender','phone','address');
+
+
+class CustomerProfile(forms.ModelForm):
+	class Meta:
+		model = Profile;
 		fields = ('photo','birthday','gender','phone','address');
 
 

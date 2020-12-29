@@ -13,6 +13,10 @@ class CommentForm(forms.ModelForm):
 		fields = ('comment',);
 
 class TicketForm(forms.ModelForm):
+	def __init__(self,*args,**kwargs):
+		super().__init__(*args,**kwargs);
+		self.helper = FormHelper(self);
+		self.helper.form_show_labels = False;
 	class Meta:
 		model =  Tickets;
 		fields = ('name','subject','description','priority','attachment');

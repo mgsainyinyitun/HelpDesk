@@ -26,6 +26,11 @@ def num_of_general():
 	tickets = Tickets.objects.all();
 	users = User.objects.all();
 	total_tickets = tickets.count();
+	
+	if total_tickets == 0:
+		total_tickets = 1;
+
+
 	admin = 0; customer = 0;technician = 0;
 
 	for user in users:

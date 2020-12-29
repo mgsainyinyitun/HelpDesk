@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from . forms import UserRegistrationForm,ProfileForm,UserForm,CustomerRegistrationForm;
+from . forms import UserRegistrationForm,ProfileForm,UserForm,CustomerRegistrationForm,CustomerProfile;
 from django.contrib.auth.decorators import login_required,user_passes_test;
 from django.contrib import messages;
 from django.contrib.auth.models import User;
@@ -26,7 +26,8 @@ def register(request):
 				new_profile.photo = 'default_female.jpg';
 			new_profile.save();
 
-			return redirect('login');
+			messages.success(request,"Technican created successfully");
+			return redirect('dashboard');
 	else:
 		user_form = UserRegistrationForm();
 		user_profile = ProfileForm();
@@ -137,7 +138,7 @@ def customer_view(request):
 def new_customer(request):
 	if request.method == 'POST':
 		customer_form = CustomerRegistrationForm(data=request.POST);
-		profile_form = ProfileForm(data=request.POST,files = request.FILES);
+		profile_form = CustomerProfile(data=request.POST,files = request.FILES);
 		if customer_form.is_valid() and profile_form.is_valid():
 			new_customer = customer_form.save(commit = False);
 			new_profile = profile_form.save(commit=False);
@@ -149,10 +150,11 @@ def new_customer(request):
 
 			new_customer.save();
 			new_profile.save();
+			messages.success(request,"Technican created successfully");
 			return redirect('dashboard');
 	else:
 		customer_form = CustomerRegistrationForm();
-		profile_form = ProfileForm();
+		profile_form = CustomerProfile();
 
 	return render(request,'user/new_customer.html',{ 'customer':'active',
 													 'profile_form':profile_form,
