@@ -67,7 +67,7 @@
 </div>
 </div>
 
-<a href="tickets/pdf" class="btn btn-success rounded-pill">pdf</a>
+
 
 
 <!-- Search -->
@@ -85,7 +85,7 @@
 </div>
 
 <div class="d-flex justify-content-center">
-  <div class="card p-3 m-2 w-75">
+  <div class="card p-3 m-2 w-75 flex-row">
     <form class="d-flex">
 
     <div class="d-flex justify-content-between mr-3">
@@ -103,16 +103,31 @@
 
 
       <div class="d-flex flex-column">
+        
+
+        {% if clear %}
+        <h4 class="text-primary">
+            <i class="far fa-trash-alt"></i>
+        </h4>
+        <a href="tickets/date/clear" class="btn btn-success">Clear</a>
+
+        {% else %}
         <h4 class="text-primary">
             <i class="far fa-calendar-alt"></i>
         </h4>
         <input type="submit" name="submit" class=" btn btn-primary bg-info text-white text-center mr-1">
+        {% endif %}
+
+
       </div>
       
     </form>
 
+  <div style="margin-top: 35px;" class="ml-2">
+    <a href="tickets/pdf" class="btn btn-success rounded-pill">pdf</a>
+  </div>
+
     
-
-
 </div>
+
 </div>

@@ -10,7 +10,8 @@ from django.utils.text import slugify;
 from user.auth import checkIfAdmin,checkIfTech,checkIfCustomer,checkIfAdminOrTech
 from .Calculation import num_of_priority,num_of_category,num_of_general;
 from .utils import render_to_pdf;
-from django.http import HttpResponse
+from django.http import HttpResponse;
+import datetime;
 
 
 @login_required
@@ -38,16 +39,17 @@ def render_pdf(request):
 def dashboard(request):
 	open=0;closed =0;pending = 0;
 	categories = Category.objects.all();
+
 	if request.user.is_superuser or request.user.is_staff:
 		if request.user.is_staff and not request.user.is_superuser:
 			if request.user.profile.category:
-				tickets = Tickets.objects.filter(category = request.user.profile.category);
+				tickets = Tickets.objects.filter(category = request.user.profile.category).order_by('-created');
 			else:
-				tickets =  Tickets.objects.all();
+				tickets =  Tickets.objects.all().order_by('-created');
 		else:
-			tickets = Tickets.objects.all();
+			tickets = Tickets.objects.all()
 	else:
-		tickets = Tickets.objects.filter(user=request.user);
+		tickets = Tickets.objects.filter(user=request.user).order_by('-created');
 
 
 	
@@ -273,12 +275,30 @@ find = {
 	'order':'descending',
 }
 
+date = {
+	'start-date':None,
+	'end-date':None,
+}
+
+
 def tickets_filter(request):
 	status = request.GET.get('status'); #all
 	priority = request.GET.get('priority'); # none
 	category = request.GET.get('category'); # all,.......
 	sort = request.GET.get('sort');
 	order = request.GET.get('order');
+
+	start_date = request.GET.get('start-date'); # date, null
+	end_date = request.GET.get('end-date');
+	# date >> dirct
+	# null >> 
+	if start_date and end_date:
+		date['start-date'] = start_date;
+		date['end-date'] = end_date;
+	elif start_date:
+		date['start-date'] = start_date;
+		date['end-date'] = datetime.date.today();
+
 	# SORTING # sort not by user id
 	if sort:
 		find['sort'] = sort;
@@ -356,6 +376,12 @@ def tickets_filter(request):
 		for cat in categories:
 			tickets = tickets & Tickets.objects.exclude(category = cat);
 		cat_none = True;
+
+
+	if date['start-date'] and date['end-date']:
+		tickets = tickets & Tickets.objects.filter(created__range = [date['start-date'],date['end-date']])
+
+
 	return tickets,cat_none;
 
 
@@ -364,8 +390,14 @@ def tickets_filter(request):
 def tickets(request):
 	categories = Category.objects.all();
 	tickets,cat_none = tickets_filter(request);
-	for k,f in find.items():
-		print(f);
+	clear = False;
+
+	if date['start-date'] and date['end-date']:
+		clear = True;
+	else:
+		clear = False;
+
+
 
 	paginator,page_obj,tickets,page = paginated(request,tickets,5);
 
@@ -377,7 +409,14 @@ def tickets(request):
 												  'page_obj':page_obj,
 												  'paginator':paginator,
 												  'page':int(page),
+												  'clear':clear,
 													});
+
+
+def clear_date(request):
+	date['start-date'] = None;
+	date['end-date'] = None;
+	return redirect('tickets');
 
 def paginated(request,objects,number):
 	paginator = Paginator(objects,number);

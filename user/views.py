@@ -1,10 +1,30 @@
 from django.shortcuts import render,redirect
-from . forms import UserRegistrationForm,ProfileForm,UserForm,CustomerRegistrationForm,CustomerProfile;
+from . forms import UserRegistrationForm,ProfileForm,UserForm,CustomerRegistrationForm,CustomerProfile,LoginForm      ;
 from django.contrib.auth.decorators import login_required,user_passes_test;
 from django.contrib import messages;
 from django.contrib.auth.models import User;
 from tickets.views import paginated;
 from .auth import checkIfAdmin,checkIfTech,checkIfCustomer
+from django.contrib.auth import authenticate
+
+
+def login(request):
+	if request.method == 'POST':
+		form = LoginForm(data=request.POST);
+		if form.is_valid():
+			print(request.POST.get('password'));
+			username = request.POST.get('username');
+			password = request.POST.get('password');
+			user = authenticate(username=username,password=password);
+
+			print("user is ;;;",user);
+
+	else:
+		form = LoginForm();
+
+	return render(request,'registration/login.html',{'form':form,
+
+		});
 
 @user_passes_test(checkIfAdmin,login_url='error')
 @login_required

@@ -16,4 +16,5 @@ urlpatterns = [
     #tickets
     path('tickets',views.tickets,name='tickets'),
     path('tickets/pdf',views.render_pdf,name='render-pdf'),
+    path('tickets/date/clear',views.clear_date,name='clear-date'),
 ]
