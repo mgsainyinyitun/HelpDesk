@@ -141,3 +141,5 @@ import os;
 MEDIA_URL = '/profile_pictures/';
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/profile_pictures');
 
+AUTHENTICATION_BACKENDS = ['user.backends.EmailBackend'];
+

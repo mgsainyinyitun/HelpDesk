@@ -47,11 +47,9 @@ def dashboard(request):
 			else:
 				tickets =  Tickets.objects.all().order_by('-created');
 		else:
-			tickets = Tickets.objects.all()
+			tickets = Tickets.objects.all().order_by('-created');
 	else:
 		tickets = Tickets.objects.filter(user=request.user).order_by('-created');
-
-
 	
 	for ticket in tickets:
 		if ticket.status == 'Open':
@@ -70,6 +68,7 @@ def dashboard(request):
 	paginator,page_obj,tickets,page = paginated(request,tickets,3);
 
 	total_tickets,admin,technician,customer  = num_of_general();	
+	print('tickets::',tickets)
 
 
 	return render(request,'user/dashboard.html',{'tickets':tickets,
@@ -189,6 +188,7 @@ def create_ticket(request):
 			new_ticket.user = request.user;
 			#new_ticket.name = request.user.username;
 			new_ticket.save();
+			messages.success('successfully created ticket');
 			return redirect('dashboard');
 	else:
 		new_form = TicketForm();
@@ -202,10 +202,10 @@ def status_view(request,status):
 	if status == 'recent':
 		return redirect('dashboard');
 
-	tickets = Tickets.objects.filter(status = status.capitalize());
+	tickets = Tickets.objects.filter(status = status.capitalize()).order_by('-created');
 
 	if not request.user.is_superuser and not request.user.is_staff:
-		tickets = tickets.filter(user= request.user);
+		tickets = tickets.filter(user= request.user).order_by('-created');
 
 	number = 0;
 	# Key <Open, Closed , Pending>

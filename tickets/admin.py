@@ -3,7 +3,7 @@ from .models import Tickets,Comment,Category;
 
 @admin.register(Tickets)
 class TicketsAdmin(admin.ModelAdmin):
-	list_display = ['user','name','subject','status','priority','updated'];
+	list_display = ['user','name','subject','status','priority','updated','created'];
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

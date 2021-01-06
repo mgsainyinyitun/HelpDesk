@@ -30,8 +30,8 @@ class Tickets(models.Model):
 
 	status = models.CharField(max_length=100,choices=STATUS_CHOICES,default='Open');
 	priority = models.CharField(max_length=100,choices= SET_PRIORITY,default = 'not_important');
-	created = models.DateTimeField(auto_now =True);
-	updated = models.DateTimeField(auto_now_add = True);
+	created = models.DateTimeField(auto_now_add =True);
+	updated = models.DateTimeField(auto_now = True);
 	def __str__(self):
 		return self.name;
 
