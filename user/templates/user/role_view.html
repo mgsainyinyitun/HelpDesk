@@ -1,5 +1,7 @@
 {% extends 'user/base.html' %}
 {% block content %}
+<div class="d-flex justify-content-center">
+<div class="card m-2 p-3 w-75">
 <div class="mb-3">
 <a href="admin" class="btn btn-danger rounded-pill">{{admin}} Admin</a>
 <a href="tech" class="btn btn-success rounded-pill">{{techs}} Technician</a>
@@ -8,4 +10,6 @@
 
 {% include 'user/tech_list.html' %}
 {% include 'tickets/paginator.html' %}
+</div>
+</div>
 {% endblock %}

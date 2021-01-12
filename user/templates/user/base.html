@@ -44,8 +44,9 @@
     </div>
    
 
-
+    {% if user.is_authenticated %}
     {% include 'user/footer.html' %}
+    {%endif%}
 
 
     <script type="text/javascript">

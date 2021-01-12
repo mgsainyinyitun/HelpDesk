@@ -25,5 +25,6 @@ urlpatterns = [
 
     #error
     path('system/error',views.error,name='error'),
+    path('system/contact-us',views.contactus,name='contact-us'),
     #path('dashboard/',views.dashboard,name='dashboard'),
 ]

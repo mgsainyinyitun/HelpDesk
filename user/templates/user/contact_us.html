@@ -1,0 +1,68 @@
+{% extends 'user/base.html' %}
+{% block title %}
+About us
+{% endblock %}
+{% block content %}
+	<div class="d-flex justify-content-center">
+	<div class="card m-2 p-3 w-50">
+		<div class="accordion" id="accordionExample">
+		{% for tech in technicians %}
+			  <div class="card">
+			    <div class="card-header" id="{{tech.username}}headingOne">
+			      <h2 class="mb-0">
+			        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#{{tech.username}}collapseOne" aria-expanded="true" aria-controls="{{tech.username}}collapseOne">
+			          Contact Information to {{tech.username}}
+			        </button>
+			      </h2>
+			    </div>
+
+			    <div id="{{tech.username}}collapseOne" class="collapse" aria-labelledby="{{tech.username}}headingOne" data-parent="#accordionExample">
+			      <div class="card-body">
+
+
+			       	<div class="row ml-1">
+			       		<div class="col-3">
+			       			<span class="text-primary"><i class="far fa-user mr-2"></i>NAME</span>
+			       			
+			       		</div>
+			       		<div class="col">
+			       			<span class="text-primary">{{tech.first_name}} {{tech.last_name}}</span>
+			       		</div>
+			       	</div>
+
+			       	<div class="row ml-1">
+			       		<div class="col-3">
+			       			<span class="text-primary"><i class="fas fa-user-cog mr-1"></i>JOB TITLE</span>
+			       		</div>
+			       		<div class="col">
+			       			<span class="text-primary">{{tech.profile.category.name}}</span>
+			       		</div>
+			       	</div>
+
+			       	<div class="row ml-1">
+			       		<div class="col-3">
+			       			<span class="text-primary"><i class="fas fa-phone mr-2"></i>PHONE</span>
+			       			
+			       		</div>
+			       		<div class="col">
+			       			<span class="text-primary">{{tech.profile.phone}}</span>
+			       		</div>
+			       	</div>
+
+			       	<div class="row ml-1">
+			       		<div class="col-3">
+			       			<span class="text-primary"><i class="fas fa-envelope-square mr-2"></i>EMAIL</span>
+			       		</div>
+			       		<div class="col">
+			       			<span class="text-primary">{{tech.email}}</span>
+			       		</div>
+			       	</div>
+
+			      </div>
+			    </div>
+			</div>
+		{% endfor%}
+		</div>
+</div>
+</div>
+{% endblock %}
