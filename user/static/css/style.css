@@ -3,8 +3,11 @@ body,html{
 	width: 100%;
 	height: 100%;
 }
-.cover-img{
-	background-image: url('cover.jpg');
+.co-img{
+	
+	background-color: #0093E9;
+	background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 100%;

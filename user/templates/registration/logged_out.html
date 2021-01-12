@@ -1,5 +1,10 @@
 {% extends 'user/base.html' %}
 {% block content %}
-<h4>Logged Out</h4>
-<p> You have been logged out successfully. Your can <a href="{% url 'login' %}">Log-in</a> again.
+<div class="d-flex justify-content-center">
+	<div class="card p-3 m-2 w-50">
+        <h4>Logged Out</h4>
+        <p> You have been logged out successfully. Your can <a href="{% url 'login' %}">Log-in</a> again.
+    </p>
+    </div>
+    </div>
 {% endblock %}

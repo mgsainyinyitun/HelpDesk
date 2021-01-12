@@ -28,7 +28,19 @@
   {% if user.is_authenticated %}
   {% include 'user/naviation.html'%}
   {% else %}
-      <div class="cover-img">
+      <div 
+      style="
+      background-color: #0093E9;
+      background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      position:absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;">
       </div>
   {% endif %}
 
@@ -44,9 +56,9 @@
     </div>
    
 
-
+    {% if user.is_authenticated %}
     {% include 'user/footer.html' %}
-
+    {% endif %}
 
     <script type="text/javascript">
 
