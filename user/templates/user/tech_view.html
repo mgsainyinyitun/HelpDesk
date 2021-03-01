@@ -1,24 +1,20 @@
 {% extends 'user/base.html' %}
 {% block content %}
 
-<div class="d-flex justify-content-center"> 
-<div class="card p-3 m-2 w-75">
-<div class="mb-3">
-<a href="admin" class="btn btn-danger rounded-pill">{{admin}} Admin</a>
-<a href="tech" class="btn btn-success rounded-pill">{{techs}} Technician</a>
+<div class="d-flex justify-content-center" style="height: 90vh;"> 
+	<div class="card p-3 m-2 w-75">
+		<div class="mb-3">
+			<a href="admin" class="btn btn-danger rounded-pill">{{admin}} Admin</a>
+			<a href="tech" class="btn btn-success rounded-pill">{{techs}} Technician</a>
 
-<a href="{% url 'register' %}" onmouseover="displayNewTech()" onmouseout="noDisplayNewTech()" class="btn btn-info rounded-circle"><i class="fas fa-plus"></i></a>
+			<a href="{% url 'register' %}" onmouseover="displayNewTech()" onmouseout="noDisplayNewTech()" class="btn btn-info rounded-circle"><i class="fas fa-plus"></i></a>
 
-<span class="badge badge-info rounded-pill p-2" id="new_tech" style="display: none;">
-	NEW TECHNICIAN
-</span>
-</div>
-
-
-
-{% include 'user/tech_list.html' %}
-{% include 'tickets/paginator.html' %}
-
-</div>
+			<span class="badge badge-info rounded-pill p-2" id="new_tech" style="display: none;">
+				NEW TECHNICIAN
+			</span>
+		</div>
+			{% include 'user/tech_list.html' %}
+			{% include 'tickets/paginator.html' %}
+	</div>
 </div>
 {% endblock %}

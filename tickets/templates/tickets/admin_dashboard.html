@@ -1,16 +1,13 @@
 
 
-<div class="row">
-
-	<div class="col p-0"> 
-
-
+<div class="row h-100">
+	<div class="col p-0 h-100"> 
 		<div class="card-group text-white">
-			<div class="card bg-primary p-3 m-1">
+			<div class="card bg-primary p-3 ml-1 mr-1 mb-1">
 				<p> Total number of Tickets</p>
 				<h1><i class="fas fa-ticket-alt mr-3"></i>{{total_tickets}}</h1>
 			</div>
-			<div class="card bg-secondary p-3 m-1">
+			<div class="card bg-secondary p-3 ml-1 mr-1 mb-1">
 				<p> Total number of Technician</p>
 				<div class="d-flex flex-row">
 				<div class="mr-3">
@@ -22,19 +19,13 @@
 				</div>
 				</div>
 			</div>
-			<div class="card bg-info p-3 m-1">
+			<div class="card bg-info p-3 ml-1 mr-1 mb-1">
 				<p> Total number of Customer</p>
 				<h1><i class="fas fa-users mr-3"></i>{{customer}}</h1>
 			</div>
 		</div>
 
-
-
-
-
-
-
-		<div class="card-group m-1">
+		<div class="card-group ml-1 mr-1 mb-1">
 			<div class="card mr-1">
 				<h3 class="card-title bg-primary text-white p-2"> Priority of Tickets</h3>
 				<div id="priority-chart">
@@ -49,23 +40,21 @@
 
 		</div>
 
-		<div class="card m-1">
+		<div class="card mr-1">
 			{% include 'tickets/category_progress.html' %}
 		</div>
 	</div>
 
-	<div class="col p-0"> 
-		<div class="p-3 my-card card m-1">
+	<div class="col p-0 h-100"> 
+		<div class="p-3 card mb-1 h-100">
 		<div>
 			 <a href="/status/open" class="btn btn-danger rounded-pill">{{open}} Open Tickets</a>
 			 <a href="/status/pending" class="btn btn-info rounded-pill">{{pending}} Pending Tickets</a>
 			 <a href="/status/closed" class="btn btn-success rounded-pill">{{closed}} Closed Tickets</a>
 			 <a href="/status/recent" class="btn btn-dark rounded-pill">Recent</a>
 		</div>
-
-
-	{% include 'tickets/tickets_list.html' %}
-	{% include 'tickets/paginator.html' %}
-	</div>
+			{% include 'tickets/tickets_list.html' %}
+			{% include 'tickets/paginator.html' %}
+		</div>
 	</div>
 </div>

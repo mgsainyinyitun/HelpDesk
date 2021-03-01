@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Ticket Detail</title>
+    <style type="text/css">
+      table {
+        border: 1px solid blue;
+        font-size: 1.3rem;
+      }
+      td {
+        padding: 3px;
+      }
+      h1{
+          font-size: 1.5rem;
+          color: blueviolet;
+      }
+      .f-col {
+        color: teal;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+      .subject{
+          font-size: 1.3rem;
+          color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ticket Detail ID :: {{id}}</h1>
+    <table>
+      <tbody>
+        <tr class="subject"> 
+          <td class="f-col">Subject ::</td>
+          <td colspan="3">{{subject}}</td>
+        </tr>
+        <tr>
+          <td class="f-col">Date ::</td>
+          <td colspan="3">{{created}}</td>
+        </tr>
+        <tr>
+          <td class="f-col">Created By ::</td>
+          <td colspan="3">{{user.username}}</td>
+        </tr>
+        <tr>
+          <td class="f-col">Department Name ::</td>
+          <td colspan="3">{{name}}</td>
+        </tr>
+
+        <tr>
+          <td class="f-col">Category ::</td>
+          <td colspan="3">{{category}}</td>
+        </tr>
+
+        <tr>
+          <td class="f-col">Status ::</td>
+          <td colspan="3">{{status}}</td>
+        </tr>
+
+        <tr>
+          <td class="f-col">Priority ::</td>
+          <td colspan="3">{{priority}}</td>
+        </tr>
+
+        <tr>
+          <td class="f-col">Description ::</td>
+          <td colspan="3">{{description}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+

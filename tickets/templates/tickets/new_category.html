@@ -5,19 +5,17 @@ Category Form
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="d-flex flex-column align-items-center">
+<div class="d-flex flex-column align-items-center justify-content-center" style="height: 80vh;">
 
-{% if request.user.is_superuser %}
-
-
-<div class="card p-3 m-2 w-50" style="border-radius: 20px;">
-<form method="POST" novalidate>
-	<h1 class="text-primary">New Category</h1>
-	{% csrf_token %}
-	{{ category_form|crispy }}
-	<input type="submit" value="ADD" class="btn btn-success">
-</form>
-</div>
+	{% if request.user.is_superuser %}
+	<div class="card p-3 m-2 w-50" style="border-radius: 20px;">
+		<form method="POST" novalidate>
+			<h1 class="text-primary">New Category</h1>
+			{% csrf_token %}
+			{{ category_form|crispy }}
+			<input type="submit" value="ADD" class="btn btn-success">
+		</form>
+	</div>
 
 {% endif %}
 

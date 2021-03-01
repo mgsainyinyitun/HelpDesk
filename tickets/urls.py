@@ -17,4 +17,6 @@ urlpatterns = [
     path('tickets',views.tickets,name='tickets'),
     path('tickets/pdf',views.render_pdf,name='render-pdf'),
     path('tickets/date/clear',views.clear_date,name='clear-date'),
+    #tickets detail
+    path('ticket/pdf/<int:id>',views.ticket_detail_pdf,name='ticket-detail-pdf')
 ]

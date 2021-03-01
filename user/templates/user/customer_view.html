@@ -1,21 +1,16 @@
 {% extends 'user/base.html' %}
 {% block content %}
-<div class="d-flex justify-content-center">
-<div class="card p-3 m-2 w-75">
-<div class="mb-3">
-<div class="btn btn-info rounded-pill">{{users.count}} Customer</div>
-
-<a onmouseover="displayNewCustomer()"  onmouseout="noDisplayNewCustomer()"  href="{% url 'new-customer' %}" class="btn btn-info rounded-circle"><i class="fas fa-plus"></i></a>
-
-
-<span class="badge badge-info rounded-pill p-2" id="new-customer" style="display: none;">
-	NEW CUSTOMER
-</span>
-
-</div>
-
-{% include 'user/customer_list.html' %}
-{% include 'tickets/paginator.html' %}
-</div>
+<div class="d-flex justify-content-center" style="height: 90vh;">
+	<div class="card p-3 m-2 w-75">
+		<div class="mb-3">
+			<div class="btn btn-info rounded-pill">{{users.count}} Customer</div>
+			<a onmouseover="displayNewCustomer()"  onmouseout="noDisplayNewCustomer()"  href="{% url 'new-customer' %}" class="btn btn-info rounded-circle"><i class="fas fa-plus"></i></a>
+			<span class="badge badge-info rounded-pill p-2" id="new-customer" style="display: none;">
+				NEW CUSTOMER
+			</span>
+		</div>
+		{% include 'user/customer_list.html' %}
+		{% include 'tickets/paginator.html' %}
+	</div>
 </div>
 {% endblock %}

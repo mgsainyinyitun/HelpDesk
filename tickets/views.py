@@ -34,6 +34,24 @@ def render_pdf(request):
 	pdf = render_to_pdf('tickets/tickets_pdf.html',tickets);
 	return HttpResponse(pdf,content_type="application/pdf")
 
+def ticket_detail_pdf(request,id):
+	ticket = Tickets.objects.get(pk=id);
+	ticket_obj = {
+		"id":ticket.id,
+		"user":ticket.user,
+		"category":ticket.category,
+		"name":ticket.name,
+		"subject":ticket.subject,
+		"description":ticket.description,
+		"status":ticket.status,
+		"priority":ticket.priority,
+		"created":ticket.created,
+		"updated":ticket.updated,
+	}
+	pdf = render_to_pdf('tickets/ticket_detail_pdf.html',ticket_obj)
+	return HttpResponse(pdf,content_type='application/pdf');
+
+
 
 @login_required
 def dashboard(request):
