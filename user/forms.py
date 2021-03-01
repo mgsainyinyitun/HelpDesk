@@ -37,6 +37,10 @@ class ProfileForm(forms.ModelForm): # customer / tech
 		model = Profile
 		fields = ('photo','birthday','category','gender','phone','address');
 
+class ProfileEditForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ('photo','birthday','gender','phone','address');
 
 class CustomerProfile(forms.ModelForm):
 	class Meta:

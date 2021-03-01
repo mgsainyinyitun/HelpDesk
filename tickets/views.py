@@ -206,7 +206,7 @@ def create_ticket(request):
 			new_ticket.user = request.user;
 			#new_ticket.name = request.user.username;
 			new_ticket.save();
-			messages.success('successfully created ticket');
+			messages.success(request,'successfully created ticket');
 			return redirect('dashboard');
 	else:
 		new_form = TicketForm();

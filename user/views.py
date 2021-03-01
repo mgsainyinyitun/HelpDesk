@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from . forms import UserRegistrationForm,ProfileForm,UserForm,CustomerRegistrationForm,CustomerProfile,LoginForm      ;
+from . forms import UserRegistrationForm,ProfileForm,UserForm,CustomerRegistrationForm,CustomerProfile,LoginForm ,ProfileEditForm    ;
 from django.contrib.auth.decorators import login_required,user_passes_test;
 from django.contrib import messages;
 from django.contrib.auth.models import User;
@@ -44,7 +44,7 @@ def register(request):
 def edit(request):
 	if request.method == "POST":
 		user_form = UserForm(instance= request.user,data=request.POST);
-		profile_form = ProfileForm(instance=request.user.profile,data=request.POST,files=request.FILES);
+		profile_form = ProfileEditForm(instance=request.user.profile,data=request.POST,files=request.FILES);
 		if user_form.is_valid() and profile_form.is_valid():
 			user_form.save();
 			profile_form.save();
@@ -53,7 +53,7 @@ def edit(request):
 			messages.error(request,"Your Profile have not been change successfully. Try Again");
 	else:
 		user_form = UserForm(instance = request.user);
-		profile_form = ProfileForm(instance= request.user.profile);
+		profile_form = ProfileEditForm(instance= request.user.profile);
 	return render(request,"user/edit.html",{"profile_form":profile_form,
 											"user_form":user_form,
 		})
