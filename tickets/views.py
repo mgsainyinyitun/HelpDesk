@@ -11,6 +11,7 @@ from user.auth import checkIfAdmin,checkIfTech,checkIfCustomer,checkIfAdminOrTec
 from .Calculation import num_of_priority,num_of_category,num_of_general;
 from .utils import render_to_pdf;
 from django.http import HttpResponse;
+import csv;
 import datetime;
 
 
@@ -33,6 +34,26 @@ def render_pdf(request):
 
 	pdf = render_to_pdf('tickets/tickets_pdf.html',tickets);
 	return HttpResponse(pdf,content_type="application/pdf")
+
+@login_required
+def export_csv(request):
+	response = HttpResponse(content_type='text/csv');
+	response['Content-Disposition'] ='attachment; filename = ticket-list-for-'+ str(datetime.date.today())+'.csv';
+	writer = csv.writer(response);
+	writer.writerow(['User','Title','Department','Status','Priority','Category','Date']);
+	tickets,cat_none=tickets_filter(request);
+	for ticket in tickets:
+		writer.writerow([
+			ticket.user.username,
+			ticket.subject,
+			ticket.name,
+			ticket.status,
+			ticket.priority,
+			ticket.category,
+			ticket.created,
+		])
+	return response;
+
 
 def ticket_detail_pdf(request,id):
 	ticket = Tickets.objects.get(pk=id);

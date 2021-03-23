@@ -129,7 +129,7 @@
 
 
 		<!-- Convert To PDF if user is admin and technician  -->
-		{% if request.user.is_superuser and request.user.is_staff %}
+		{% if request.user.is_superuser or request.user.is_staff %}
 		<a href="/ticket/pdf/{{ticket.id}}" class="btn btn-success rounded-pill ml-1">PDF</a>
 		{% endif %}
 		<!-- end for PDF Convert Button -->
